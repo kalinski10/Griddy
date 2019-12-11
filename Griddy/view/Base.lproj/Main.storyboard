@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Griddy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="griddy Logo" translatesAutoresizingMaskIntoConstraints="NO" id="ScQ-ci-onb">
+                                <rect key="frame" x="25" y="133" width="365" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CI8-dL-Z1N" userLabel="photoLibraryButton">
+                                <rect key="frame" x="224" y="527" width="130" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="Photo library Button"/>
+                                <connections>
+                                    <action selector="photoLibraryButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cLN-gK-YVd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvu-Qz-5GY" userLabel="cameraButton">
+                                <rect key="frame" x="61" y="527" width="130" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="camera Button"/>
+                                <connections>
+                                    <action selector="CameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QPL-mX-m9Z"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="—OR load your own—" translatesAutoresizingMaskIntoConstraints="NO" id="YDP-zn-bw0">
+                                <rect key="frame" x="54" y="474" width="300" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snb-tp-bq2" userLabel="griddyButton">
+                                <rect key="frame" x="142" y="367" width="130" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="griddy Button"/>
+                                <connections>
+                                    <action selector="griddyPickButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gqi-NO-gGk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <segue destination="1jQ-Ke-sBu" kind="show" identifier="segue" id="fct-db-d0a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="137.94642857142856"/>
+        </scene>
+        <!--View Controller Two-->
+        <scene sceneID="SbE-eT-rwB">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="1jQ-Ke-sBu" customClass="ViewControllerTwo" customModule="Griddy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m3p-VI-pG6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="motorBike" translatesAutoresizingMaskIntoConstraints="NO" id="grT-XF-mzU">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Rectangle 1" translatesAutoresizingMaskIntoConstraints="NO" id="4HE-xY-Deu" userLabel="shade">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fvP-4P-1DO" userLabel="sliceImageView">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="motorBike" translatesAutoresizingMaskIntoConstraints="NO" id="h9s-Aw-1VK" userLabel="creationImage">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sliceTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="enq-H8-gFC">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ow-tc-imf" userLabel="startButton">
+                                <rect key="frame" x="121" y="663" width="173" height="118"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="start Button"/>
+                                <connections>
+                                    <action selector="startButton:" destination="1jQ-Ke-sBu" eventType="touchUpInside" id="XOW-8i-34Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HWU-tB-W83" userLabel="cancelButton">
+                                <rect key="frame" x="311" y="74" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="cancel button"/>
+                                <connections>
+                                    <action selector="exitButton:" destination="1jQ-Ke-sBu" eventType="touchUpInside" id="eOZ-P3-YXo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="tWt-8r-ubv"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yyM-40-5yc"/>
+                    <connections>
+                        <outlet property="backImage" destination="grT-XF-mzU" id="N9j-Zw-eKf"/>
+                        <outlet property="creationImage" destination="h9s-Aw-1VK" id="qjo-YS-iWQ"/>
+                        <outlet property="sliceImageView" destination="fvP-4P-1DO" id="g8P-2L-9HU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z6s-oC-eGo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="802.89855072463774" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Photo library Button" width="74" height="64"/>
+        <image name="Rectangle 1" width="375" height="812"/>
+        <image name="camera Button" width="74" height="64"/>
+        <image name="cancel button" width="50" height="50"/>
+        <image name="griddy Button" width="74" height="64"/>
+        <image name="griddy Logo" width="165" height="83.5"/>
+        <image name="motorBike" width="2339" height="1559.5"/>
+        <image name="sliceTemplate" width="125" height="125"/>
+        <image name="start Button" width="75" height="50"/>
+        <image name="—OR load your own—" width="105.5" height="18.5"/>
+    </resources>
+</document>

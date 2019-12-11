@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C326937238480070073634E /* ViewControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C326936238480070073634E /* ViewControllerTwo.swift */; };
 		4C93D352237DEC5C00AAD124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93D351237DEC5C00AAD124 /* AppDelegate.swift */; };
 		4C93D354237DEC5C00AAD124 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93D353237DEC5C00AAD124 /* SceneDelegate.swift */; };
 		4C93D356237DEC5C00AAD124 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93D355237DEC5C00AAD124 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C326936238480070073634E /* ViewControllerTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTwo.swift; sourceTree = "<group>"; };
 		4C93D34E237DEC5C00AAD124 /* Griddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Griddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C93D351237DEC5C00AAD124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C93D353237DEC5C00AAD124 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,15 +58,48 @@
 		4C93D350237DEC5C00AAD124 /* Griddy */ = {
 			isa = PBXGroup;
 			children = (
+				4C93D368237DECCB00AAD124 /* model */,
+				4C93D367237DECC200AAD124 /* view */,
+				4C93D366237DECB600AAD124 /* controller */,
+				4C93D365237DECA500AAD124 /* supporting files */,
 				4C93D351237DEC5C00AAD124 /* AppDelegate.swift */,
 				4C93D353237DEC5C00AAD124 /* SceneDelegate.swift */,
-				4C93D355237DEC5C00AAD124 /* ViewController.swift */,
-				4C93D357237DEC5C00AAD124 /* Main.storyboard */,
 				4C93D35A237DEC5E00AAD124 /* Assets.xcassets */,
 				4C93D35C237DEC5E00AAD124 /* LaunchScreen.storyboard */,
 				4C93D35F237DEC5E00AAD124 /* Info.plist */,
+				4C326936238480070073634E /* ViewControllerTwo.swift */,
 			);
 			path = Griddy;
+			sourceTree = "<group>";
+		};
+		4C93D365237DECA500AAD124 /* supporting files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "supporting files";
+			sourceTree = "<group>";
+		};
+		4C93D366237DECB600AAD124 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				4C93D355237DEC5C00AAD124 /* ViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		4C93D367237DECC200AAD124 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4C93D357237DEC5C00AAD124 /* Main.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		4C93D368237DECCB00AAD124 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +176,7 @@
 				4C93D356237DEC5C00AAD124 /* ViewController.swift in Sources */,
 				4C93D352237DEC5C00AAD124 /* AppDelegate.swift in Sources */,
 				4C93D354237DEC5C00AAD124 /* SceneDelegate.swift in Sources */,
+				4C326937238480070073634E /* ViewControllerTwo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
