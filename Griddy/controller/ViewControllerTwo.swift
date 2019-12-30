@@ -11,6 +11,7 @@ import UIKit
 class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
 
     var imageRecieved: UIImage?
+    var toSend = [UIImage]()
     
     @IBOutlet weak var creationImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
@@ -27,17 +28,63 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func exitButton(_ sender: Any) {
-        
-        print("need to exit")
         dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func startButton(_ sender: Any) {
+        if let image = imageRecieved {
+            DispatchQueue.global(qos: .userInitiated).async {
+                // get cropped image
+                self.toSend = self.slice(image: image, into: 4 * 4)
+            }
+        } else {
+            print("Image not found")
+        }
+        performSegue(withIdentifier: "segueTwo", sender: self)
+    }
+    
+    func slice(image: UIImage, into howMany: Int) -> [UIImage] {
+        let width: CGFloat
+        let height: CGFloat
         
-        print("slice and dice")
-        print("prepare for segue")
+        switch image.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            width = image.size.height
+            height = image.size.width
+        default:
+            width = image.size.width
+            height = image.size.height
+        }
         
+        let tileWidth = Int(width / CGFloat(howMany))
+        let tileHeight = Int(height / CGFloat(howMany))
+        
+        let scale = Int(image.scale)
+        var images = [UIImage]()
+        let cgImage = image.cgImage!
+        
+        var adjustedHeight = tileHeight
+        
+        var y = 0
+        for row in 0 ..< howMany {
+            if row == (howMany - 1) {
+                adjustedHeight = Int(height) - y
+            }
+            var adjustedWidth = tileWidth
+            var x = 0
+            for column in 0 ..< howMany {
+                if column == (howMany - 1) {
+                    adjustedWidth = Int(width) - x
+                }
+                let origin = CGPoint(x: x * scale, y: y * scale)
+                let size = CGSize(width: adjustedWidth * scale, height: adjustedHeight * scale)
+                let tileCGImage = cgImage.cropping(to: CGRect(origin: origin, size: size))!
+                images.append(UIImage(cgImage: tileCGImage, scale: image.scale, orientation: image.imageOrientation))
+                x += tileWidth
+            }
+            y += tileHeight
+        }
+        return images
     }
     
     func configure() {
@@ -80,6 +127,12 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
             return false
         }
         return true
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueTwo" {
+            let vc = segue.destination as! viewControllerThree
+            vc.sliceImageArray = toSend
+        }
     }
     
     /*
