@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -83,7 +84,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sliceTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="enq-H8-gFC">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sliceTemp" translatesAutoresizingMaskIntoConstraints="NO" id="enq-H8-gFC">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -115,11 +116,117 @@
                         <outlet property="backImage" destination="grT-XF-mzU" id="N9j-Zw-eKf"/>
                         <outlet property="creationImage" destination="h9s-Aw-1VK" id="qjo-YS-iWQ"/>
                         <outlet property="sliceImageView" destination="fvP-4P-1DO" id="g8P-2L-9HU"/>
+                        <segue destination="HOU-hi-wEI" kind="showDetail" identifier="segueTwo" id="vFe-hG-ghV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z6s-oC-eGo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="802.89855072463774" y="137.94642857142856"/>
+        </scene>
+        <!--View Controller Three-->
+        <scene sceneID="rGO-km-2wR">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="HOU-hi-wEI" customClass="viewControllerThree" customModule="Griddy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tg3-qo-vzD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jXf-WX-mmI" userLabel="topCollectionView">
+                                <rect key="frame" x="20" y="101" width="374" height="185"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PA4-Jn-ggr">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="AEz-zj-Ftr" customClass="topCollectionViewCell" customModule="Griddy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Dy3-kC-MGL" customClass="topCollectionViewCell" customModule="Griddy" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wm2-XM-BHs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Wm2-XM-BHs" firstAttribute="top" secondItem="Dy3-kC-MGL" secondAttribute="top" constant="20" symbolic="YES" id="5B5-dt-5AW"/>
+                                                <constraint firstAttribute="bottom" secondItem="Wm2-XM-BHs" secondAttribute="bottom" constant="20" symbolic="YES" id="Igu-eF-tNG"/>
+                                                <constraint firstAttribute="trailing" secondItem="Wm2-XM-BHs" secondAttribute="trailing" constant="20" symbolic="YES" id="InQ-Mo-zz1"/>
+                                                <constraint firstItem="Wm2-XM-BHs" firstAttribute="leading" secondItem="Dy3-kC-MGL" secondAttribute="leading" constant="20" symbolic="YES" id="OrL-x5-uAg"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="topImageView" destination="Wm2-XM-BHs" id="AGh-cX-qrk"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="HOU-hi-wEI" id="bn3-MA-PBL"/>
+                                    <outlet property="delegate" destination="HOU-hi-wEI" id="DQS-h1-b4I"/>
+                                </connections>
+                            </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zS6-np-pED" userLabel="bottomCollectionView">
+                                <rect key="frame" x="20" y="368" width="374" height="210"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PsU-Vh-Zc1">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qez-Ca-p7q" customClass="bottomCollectionViewCell" customModule="Griddy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IF3-g5-3qW">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aBl-Or-tpP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="aBl-Or-tpP" secondAttribute="bottom" constant="20" symbolic="YES" id="BB0-qX-HQl"/>
+                                                <constraint firstItem="aBl-Or-tpP" firstAttribute="top" secondItem="IF3-g5-3qW" secondAttribute="top" constant="20" symbolic="YES" id="tVw-xn-Eab"/>
+                                                <constraint firstItem="aBl-Or-tpP" firstAttribute="leading" secondItem="IF3-g5-3qW" secondAttribute="leading" constant="20" symbolic="YES" id="vEx-py-Nhh"/>
+                                                <constraint firstAttribute="trailing" secondItem="aBl-Or-tpP" secondAttribute="trailing" constant="20" symbolic="YES" id="xLR-nO-8mb"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="bottomImageView" destination="aBl-Or-tpP" id="5ek-Wm-4l5"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="HOU-hi-wEI" id="l8O-CM-KyL"/>
+                                    <outlet property="delegate" destination="HOU-hi-wEI" id="W5g-bL-1LN"/>
+                                </connections>
+                            </collectionView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-BL-Z7r">
+                                <rect key="frame" x="87" y="734" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="f8A-Sy-MF1"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QLR-hD-D4a"/>
+                    <connections>
+                        <outlet property="bottomCollectionView" destination="zS6-np-pED" id="uUP-hj-QPv"/>
+                        <outlet property="tempImageView" destination="NXC-BL-Z7r" id="jjh-4l-edW"/>
+                        <outlet property="topCollectionView" destination="jXf-WX-mmI" id="lcx-Jy-4fJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vRO-Jh-f5K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489.8550724637682" y="137.94642857142856"/>
         </scene>
     </scenes>
     <resources>
@@ -130,7 +237,7 @@
         <image name="griddy Button" width="74" height="64"/>
         <image name="griddy Logo" width="165" height="83.5"/>
         <image name="motorBike" width="2339" height="1559.5"/>
-        <image name="sliceTemplate" width="125" height="125"/>
+        <image name="sliceTemp" width="323" height="322"/>
         <image name="start Button" width="75" height="50"/>
         <image name="—OR load your own—" width="105.5" height="18.5"/>
     </resources>
