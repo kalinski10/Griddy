@@ -8,33 +8,26 @@
 
 import UIKit
 
-class viewControllerThree: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class viewControllerThree: ViewController {
+
+    @IBOutlet weak var tempImageView: UIImageView!
+    @IBOutlet weak var topCollectionView: TopCollectionView!
+    @IBOutlet weak var bottomCollectionView: BottomCollectionView!
+    
+    public var sliceImageArray = [UIImage]()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        collectionOne = sliceImageArray
-        collectionTwo = sliceImageArray
-        sliceImageArray.shuffle()
+        topCollectionView.topCollection = sliceImageArray.shuffled()
+        
+        let itemSize = topCollectionView.bounds.width/6 - 5
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        
+        topCollectionView.collectionViewLayout = layout
     }
-    
-    var sliceImageArray = [UIImage]()
-    var collectionOne = [UIImage]()
-    var collectionTwo = [UIImage]()
-    @IBOutlet weak var tempImageView: UIImageView!
-    @IBOutlet weak var topCollectionView: UICollectionView!
-    @IBOutlet weak var bottomCollectionView: UICollectionView!
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sliceImageArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCollectionViewCell", for: indexPath) as! topCollectionViewCell
-        cell.topImageView.image = collectionOne[0]
-            return cell
-     }
-    
-    
-    
 }
