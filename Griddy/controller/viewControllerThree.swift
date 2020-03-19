@@ -20,14 +20,22 @@ class viewControllerThree: ViewController {
         
         super.viewDidLoad()
         topCollectionView.topCollection = sliceImageArray.shuffled()
+        bottomCollectionView.bottomCollection = sliceImageArray
         
         let itemSize = topCollectionView.bounds.width/6 - 5
+        let bottomItemSize = bottomCollectionView.bounds.width/4
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         
+        let bottomLayout = UICollectionViewFlowLayout()
+        bottomLayout.itemSize = CGSize(width: bottomItemSize, height: bottomItemSize)
+        bottomLayout.minimumLineSpacing = 0
+        bottomLayout.minimumInteritemSpacing = 0
+        
         topCollectionView.collectionViewLayout = layout
+        bottomCollectionView.collectionViewLayout = bottomLayout
     }
 }

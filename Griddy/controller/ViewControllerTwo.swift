@@ -16,6 +16,7 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var creationImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var sliceImageView: UIView!
+    @IBOutlet weak var sliceTemp: UIImageView!
     
     var initialImageViewOffset = CGPoint()
     
@@ -32,6 +33,7 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func startButton(_ sender: Any) {
+        imageRecieved = composeScreenShot()
         if let image = imageRecieved {
             DispatchQueue.global(qos: .userInitiated).async {
                 // get cropped image
@@ -42,6 +44,18 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
         }
         performSegue(withIdentifier: "segueTwo", sender: self)
     }
+    
+    func composeScreenShot() -> UIImage {
+        
+        sliceTemp.isHidden = true
+        UIGraphicsBeginImageContextWithOptions(sliceImageView.bounds.size, false, 0)
+        sliceImageView.drawHierarchy(in: sliceImageView.bounds, afterScreenUpdates: true)
+        let screenShot = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        return screenShot
+        
+    }
+    
     
     func slice(image: UIImage, into howMany: Int) -> [UIImage] {
         let width: CGFloat
