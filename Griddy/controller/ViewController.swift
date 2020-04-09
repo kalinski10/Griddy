@@ -16,9 +16,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var imageToPass: UIImage!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         collectImageSet()
-        requestAcess()
     }
     
     @IBAction func griddyPickButton(_ sender: UIButton) {
@@ -27,12 +28,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func CameraButton(_ sender: UIButton) {
-        displayMedia(x: .camera, y: "Camera", z: .authorized )
+        displayMedia(sourceType: .camera, name: "Camera", status: .authorized )
         performSegue(withIdentifier: "segue", sender: self)
     }
     
     @IBAction func photoLibraryButton(_ sender: UIButton) {
-        displayMedia(x: .photoLibrary, y: "Photo Library", z: .authorized)
+        displayMedia(sourceType: .photoLibrary, name: "Photo Library", status: .authorized)
         performSegue(withIdentifier: "segue", sender: self)
     }
     
@@ -40,49 +41,61 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if PHPhotoLibrary.authorizationStatus() == .notDetermined || AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .notDetermined {
             
-           /* PHPhotoLibrary.requestAuthorization(<#T##handler: (PHAuthorizationStatus) -> Void##(PHAuthorizationStatus) -> Void#>)
-            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: <#T##(Bool) -> Void#>)*/
+            PHPhotoLibrary.requestAuthorization { (granted) in
+                if granted == . authorized {
+                print("granted")
+                }
+            }
+            AVCaptureDevice.requestAccess(for: AVMediaType.video) { (Bool) in
+                print("granted")
+            }
         }
         
     }
   
-    func displayMedia(x: UIImagePickerController.SourceType, y: String, z: PHAuthorizationStatus) {
-        
-        let sourceType = x
+    func displayMedia(sourceType: UIImagePickerController.SourceType, name: String, status: PHAuthorizationStatus) {
         
         if UIImagePickerController.isSourceTypeAvailable(sourceType){
-            let status = z
-            let noPermissionMessage = "Looks like Griddy doesn't have access to your photos:( Please use Setting app on your device to permit Griddy accessing your \(y)"
+            
+            let noPermissionMessage = "Looks like Griddy doesn't have access to your photos:( Please use Setting app on your device to permit Griddy accessing your \(name)"
+            
             switch status {
-            case .notDetermined:
-                requestAcess()
-            case .authorized:
-                self.presentImagePicker(sourceType: sourceType)
-            case .denied, .restricted:
-                self.alertMessage(message: noPermissionMessage)
-            @unknown default:
-                print("error")
+                case .notDetermined:
+                    requestAcess()
+                case .authorized:
+                    self.presentImagePicker(sourceType: sourceType)
+                case .denied, .restricted:
+                    self.alertMessage(message: noPermissionMessage)
+                @unknown default:
+                    print("error")
             }
-        } else {
-            alertMessage(message: "Sincere apologies, it looks like we cant access your \(y) at this time!")
-        }
+            
+        } else { alertMessage(message: "Sincere apologies, it looks like we cant access your \(name) at this time!") }
+        
     }
     
     func presentImagePicker(sourceType: UIImagePickerController.SourceType){
+        
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
+        
         present(imagePicker, animated: true, completion: nil)
+        
     }
     
     func alertMessage(message: String?){
+        
         let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
         let OKaction = UIAlertAction(title: "Got it", style: .cancel)
         alertController.addAction(OKaction)
+        
         present(alertController, animated: true)
+        
     }
     
     func collectImageSet() { //collecing all the integrated images
+        
         localImages.removeAll()
         let imageNames = ["cat", "dog", "umbrellas", "cake", "motorBike"]
         
@@ -94,20 +107,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func randomImage() { //choosing a random picture
+        
         let randIndex = Int.random(in: 0..<localImages.count)
         imageToPass = localImages[randIndex]
+        
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         picker.dismiss(animated: true, completion: nil)
         let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
         imageToPass = tempImg
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "segue" {
             let vc = segue.destination as! ViewControllerTwo
             vc.imageRecieved = imageToPass
+            
         }
     }
     

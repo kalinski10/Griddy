@@ -23,6 +23,7 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        sliceImageView.backgroundColor = .white
         creationImage.image = imageRecieved
         backImage.image = imageRecieved
         configure()

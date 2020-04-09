@@ -13,24 +13,55 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     public var bottomCollection = [UIImage]()
     
     override func draw(_ rect: CGRect) {
+        
         super.draw(rect)
+        delegate = self
+        dataSource = self
         dropDelegate = self
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        guard (coordinator.destinationIndexPath) != nil else {return}
-        guard coordinator.items.first != nil else {return}
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        
+        return bottomCollection.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = dequeueReusableCell(withReuseIdentifier: "bottomCollectioViewCell", for: indexPath) as! CollectionViewCell
-        return cell
-    }
+        cell.bottomImageView.image = bottomCollection[indexPath.row]
+        cell.layer.borderWidth = CGFloat(2)
+        cell.layer.borderColor = CGColor(srgbRed: 212, green: 175, blue: 0, alpha: 1)
 
+        return cell
+        
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        
+        let destIndexPath:IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destIndexPath = indexPath
+        } else {
+            let section = collectionView.numberOfSections
+            let items = collectionView.numberOfItems(inSection: section)
+            destIndexPath = IndexPath(item: items, section: section)
+        }
+        
+        coordinator.session.loadObjects(ofClass: UIImage.self) { items in
+            guard let imageArray = items as? [UIImage] else {return}
+            
+            self.bottomCollection.remove(at: destIndexPath.row)
+            self.bottomCollection.insert(imageArray.first!, at: destIndexPath.row)
+            collectionView.insertItems(at: [destIndexPath])
+        }
+        
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
