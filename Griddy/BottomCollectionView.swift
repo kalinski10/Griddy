@@ -22,9 +22,7 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return bottomCollection.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -32,10 +30,9 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
         let cell = dequeueReusableCell(withReuseIdentifier: "bottomCollectioViewCell", for: indexPath) as! CollectionViewCell
         cell.bottomImageView.image = bottomCollection[indexPath.row]
         cell.layer.borderWidth = CGFloat(2)
-        cell.layer.borderColor = CGColor(srgbRed: 212, green: 175, blue: 0, alpha: 1)
+        cell.layer.borderColor = CGColor(srgbRed: 212/255, green: 175/255, blue: 55/255, alpha: 1)
 
         return cell
-        
     }
     
     
@@ -59,7 +56,6 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
             self.bottomCollection.insert(imageArray.first!, at: destIndexPath.row)
             collectionView.insertItems(at: [destIndexPath])
         }
-        
     }
     
     /*

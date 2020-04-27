@@ -28,51 +28,65 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func CameraButton(_ sender: UIButton) {
-        displayMedia(sourceType: .camera, name: "Camera", status: .authorized )
-        performSegue(withIdentifier: "segue", sender: self)
+        displayCamera()
+//        performSegue(withIdentifier: "segue", sender: self)
     }
     
     @IBAction func photoLibraryButton(_ sender: UIButton) {
-        displayMedia(sourceType: .photoLibrary, name: "Photo Library", status: .authorized)
-        performSegue(withIdentifier: "segue", sender: self)
-    }
-    
-    func requestAcess(){
-        
-        if PHPhotoLibrary.authorizationStatus() == .notDetermined || AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .notDetermined {
-            
-            PHPhotoLibrary.requestAuthorization { (granted) in
-                if granted == . authorized {
-                print("granted")
-                }
-            }
-            AVCaptureDevice.requestAccess(for: AVMediaType.video) { (Bool) in
-                print("granted")
-            }
-        }
-        
+        displayLibrary()
+//        performSegue(withIdentifier: "segue", sender: self)
     }
   
-    func displayMedia(sourceType: UIImagePickerController.SourceType, name: String, status: PHAuthorizationStatus) {
+    func displayLibrary() {
         
-        if UIImagePickerController.isSourceTypeAvailable(sourceType){
-            
-            let noPermissionMessage = "Looks like Griddy doesn't have access to your photos:( Please use Setting app on your device to permit Griddy accessing your \(name)"
+        let sourceType = UIImagePickerController.SourceType.photoLibrary
+        
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let status = PHPhotoLibrary.authorizationStatus()
+            let noPermissionMessage = "Looks like Gridy doesn't have access to your photos :( please use settings app on your device to permit Gridy accessing your library"
             
             switch status {
-                case .notDetermined:
-                    requestAcess()
-                case .authorized:
-                    self.presentImagePicker(sourceType: sourceType)
-                case .denied, .restricted:
-                    self.alertMessage(message: noPermissionMessage)
-                @unknown default:
-                    print("error")
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({(granted) in
+                    if granted == .authorized {
+                        self.presentImagePicker(sourceType: sourceType)
+                    } else { self.alertMessage(message: noPermissionMessage) }
+                })
+            case .authorized:
+                self.presentImagePicker(sourceType: sourceType)
+            case .denied, .restricted:
+                alertMessage(message: noPermissionMessage)
+            @unknown default:
+                fatalError()
             }
-            
-        } else { alertMessage(message: "Sincere apologies, it looks like we cant access your \(name) at this time!") }
-        
+        } else { self.alertMessage(message: "Sincere apologies, it looks like we can't access your photo library at this time")}
     }
+    
+    func displayCamera() {
+        
+        let sourceType = UIImagePickerController.SourceType.camera
+        
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let status = AVCaptureDevice.authorizationStatus(for: .video)
+            let noPermissionMessage = "Looks like Gridy doesn't have access to your camera :( please use settings app on your device to permit Gridy accessing your camera"
+            
+            switch status {
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video, completionHandler: {(granted) in
+                    if granted {
+                        self.presentImagePicker(sourceType: sourceType)
+                    } else { self.alertMessage(message: noPermissionMessage)}
+                })
+            case .authorized:
+                self.presentImagePicker(sourceType: sourceType)
+            case .restricted, .denied:
+                self.alertMessage(message: noPermissionMessage)
+            @unknown default:
+                fatalError()
+            }
+        } else {self.alertMessage(message: "Sincere apologies, it looks like we can't access your camera at this time")}
+    }
+    
     
     func presentImagePicker(sourceType: UIImagePickerController.SourceType){
         
@@ -81,7 +95,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.sourceType = sourceType
         
         present(imagePicker, animated: true, completion: nil)
-        
+                
     }
     
     func alertMessage(message: String?){

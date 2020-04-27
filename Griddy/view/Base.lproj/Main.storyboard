@@ -326,7 +326,7 @@
                                 </cells>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragText" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-U6-aId">
-                                <rect key="frame" x="88.333333333333314" y="377.33333333333331" width="237.66666666666669" height="41.666666666666686"/>
+                                <rect key="frame" x="88.333333333333329" y="377.33333333333331" width="237.66666666666669" height="41.666666666666686"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MrI-Dw-YQv">
                                 <rect key="frame" x="0.0" y="54" width="374" height="50"/>
@@ -385,10 +385,10 @@
                                 <exclude reference="NFd-Ge-T0O"/>
                                 <exclude reference="Wdh-YE-9ZR"/>
                                 <exclude reference="hFW-gj-v99"/>
-                                <exclude reference="pE1-40-H6N"/>
-                                <exclude reference="u2v-uK-8zf"/>
                                 <exclude reference="bRi-Tc-EOG"/>
                                 <exclude reference="kvR-et-Jhy"/>
+                                <exclude reference="pE1-40-H6N"/>
+                                <exclude reference="u2v-uK-8zf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -398,16 +398,16 @@
                                 <include reference="Wdh-YE-9ZR"/>
                                 <include reference="hFW-gj-v99"/>
                                 <exclude reference="YjM-YF-XGn"/>
-                                <exclude reference="HSC-Ah-ak5"/>
-                                <include reference="pE1-40-H6N"/>
-                                <exclude reference="q6K-v9-xAA"/>
-                                <include reference="u2v-uK-8zf"/>
                                 <exclude reference="SO9-XC-BcB"/>
                                 <exclude reference="PDe-0s-aDD"/>
                                 <exclude reference="W4Y-yD-V8H"/>
                                 <include reference="bRi-Tc-EOG"/>
                                 <exclude reference="ivH-dY-zMj"/>
                                 <include reference="kvR-et-Jhy"/>
+                                <exclude reference="HSC-Ah-ak5"/>
+                                <include reference="pE1-40-H6N"/>
+                                <exclude reference="q6K-v9-xAA"/>
+                                <include reference="u2v-uK-8zf"/>
                             </mask>
                         </variation>
                     </view>

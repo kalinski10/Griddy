@@ -29,7 +29,7 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
         let cell = dequeueReusableCell(withReuseIdentifier: "topCollectionViewCell", for: indexPath) as! CollectionViewCell
         cell.topImageView.image = topCollection[indexPath.row]
         cell.layer.borderWidth = CGFloat(2)
-        cell.layer.borderColor = CGColor(srgbRed: 212, green: 175, blue: 0, alpha: 1)
+        cell.layer.borderColor = CGColor(srgbRed: 212/255, green: 175/255, blue: 55/255, alpha: 0.5)
         return cell
     }
 
