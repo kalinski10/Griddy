@@ -22,6 +22,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectImageSet()
     }
     
+    @IBAction func mainUnwind(unwindSegue: UIStoryboardSegue){
+        
+    }
+    
     @IBAction func griddyPickButton(_ sender: UIButton) {
         randomImage()
         performSegue(withIdentifier: "segue", sender: self)
@@ -34,13 +38,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func photoLibraryButton(_ sender: UIButton) {
         displayLibrary()
-//        performSegue(withIdentifier: "segue", sender: self)
+//        performSegue(withIdentifier: "segue", sender:self)
     }
   
     func displayLibrary() {
         
         let sourceType = UIImagePickerController.SourceType.photoLibrary
-        
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let status = PHPhotoLibrary.authorizationStatus()
             let noPermissionMessage = "Looks like Gridy doesn't have access to your photos :( please use settings app on your device to permit Gridy accessing your library"
@@ -50,7 +53,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 PHPhotoLibrary.requestAuthorization({(granted) in
                     if granted == .authorized {
                         self.presentImagePicker(sourceType: sourceType)
-                    } else { self.alertMessage(message: noPermissionMessage) }
+                    } else {
+                        self.alertMessage(message: noPermissionMessage)
+                    }
                 })
             case .authorized:
                 self.presentImagePicker(sourceType: sourceType)
@@ -59,7 +64,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             @unknown default:
                 fatalError()
             }
-        } else { self.alertMessage(message: "Sincere apologies, it looks like we can't access your photo library at this time")}
+        } else {
+            self.alertMessage(message: "Sincere apologies, it looks like we can't access your photo library at this time")
+        }
     }
     
     func displayCamera() {
@@ -84,7 +91,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             @unknown default:
                 fatalError()
             }
-        } else {self.alertMessage(message: "Sincere apologies, it looks like we can't access your camera at this time")}
+        } else {
+            self.alertMessage(message: "Sincere apologies, it looks like we can't access your camera at this time")
+        }
     }
     
     
@@ -93,9 +102,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
-        
         present(imagePicker, animated: true, completion: nil)
-                
     }
     
     func alertMessage(message: String?){
@@ -103,9 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
         let OKaction = UIAlertAction(title: "Got it", style: .cancel)
         alertController.addAction(OKaction)
-        
         present(alertController, animated: true)
-        
     }
     
     func collectImageSet() { //collecing all the integrated images
@@ -124,15 +129,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let randIndex = Int.random(in: 0..<localImages.count)
         imageToPass = localImages[randIndex]
-        
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        picker.dismiss(animated: true, completion: nil)
         let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
         imageToPass = tempImg
-        
+        performSegue(withIdentifier: "segue", sender: self)
+        picker.dismiss(animated: true, completion: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,7 +144,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if segue.identifier == "segue" {
             let vc = segue.destination as! ViewControllerTwo
             vc.imageRecieved = imageToPass
-            
         }
     }
     

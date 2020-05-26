@@ -17,7 +17,7 @@
 		4CD1B75F23DF5F9F000895F7 /* TopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1B75E23DF5F9F000895F7 /* TopCollectionView.swift */; };
 		4CD1B76123DF5FB6000895F7 /* BottomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1B76023DF5FB6000895F7 /* BottomCollectionView.swift */; };
 		4CD1B76323DF789F000895F7 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1B76223DF789F000895F7 /* CollectionViewCell.swift */; };
-		4CF9BAEA23A2746800C2CAFB /* viewControllerThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9BAE923A2746800C2CAFB /* viewControllerThree.swift */; };
+		4CF9BAEA23A2746800C2CAFB /* ViewControllerThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9BAE923A2746800C2CAFB /* ViewControllerThree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		4CD1B75E23DF5F9F000895F7 /* TopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopCollectionView.swift; path = Griddy/TopCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		4CD1B76023DF5FB6000895F7 /* BottomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BottomCollectionView.swift; path = Griddy/BottomCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		4CD1B76223DF789F000895F7 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = Griddy/CollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		4CF9BAE923A2746800C2CAFB /* viewControllerThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewControllerThree.swift; sourceTree = "<group>"; };
+		4CF9BAE923A2746800C2CAFB /* ViewControllerThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerThree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +91,7 @@
 			children = (
 				4C93D355237DEC5C00AAD124 /* ViewController.swift */,
 				4C326936238480070073634E /* ViewControllerTwo.swift */,
-				4CF9BAE923A2746800C2CAFB /* viewControllerThree.swift */,
+				4CF9BAE923A2746800C2CAFB /* ViewControllerThree.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -185,7 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CF9BAEA23A2746800C2CAFB /* viewControllerThree.swift in Sources */,
+				4CF9BAEA23A2746800C2CAFB /* ViewControllerThree.swift in Sources */,
 				4C93D356237DEC5C00AAD124 /* ViewController.swift in Sources */,
 				4CD1B76323DF789F000895F7 /* CollectionViewCell.swift in Sources */,
 				4CD1B75F23DF5F9F000895F7 /* TopCollectionView.swift in Sources */,

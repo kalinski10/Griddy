@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -245,7 +245,7 @@
         <!--View Controller Three-->
         <scene sceneID="rGO-km-2wR">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="HOU-hi-wEI" customClass="viewControllerThree" customModule="Griddy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="HOU-hi-wEI" customClass="ViewControllerThree" customModule="Griddy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tg3-qo-vzD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,22 +329,32 @@
                                 <rect key="frame" x="88.333333333333329" y="377.33333333333331" width="237.66666666666669" height="41.666666666666686"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MrI-Dw-YQv">
-                                <rect key="frame" x="0.0" y="54" width="374" height="50"/>
+                                <rect key="frame" x="0.0" y="54" width="414" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="del-nM-blo">
-                                        <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
                                         <state key="normal" image="newGameButton"/>
                                         <connections>
-                                            <action selector="newGameButton:" destination="HOU-hi-wEI" eventType="touchUpInside" id="2IR-RL-B9O"/>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="segueThree" modalPresentationStyle="fullScreen" id="uEE-8r-0aD"/>
+                                            <segue destination="0lO-2m-nrs" kind="unwind" unwindAction="mainUnwindWithUnwindSegue:" id="T6E-Fs-m3x"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gridy-name-small-green" translatesAutoresizingMaskIntoConstraints="NO" id="7qn-EV-3nG">
-                                        <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="50"/>
+                                        <rect key="frame" x="138" y="0.0" width="138" height="50"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Score" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-69-Gdm">
-                                        <rect key="frame" x="249.33333333333334" y="0.0" width="124.66666666666666" height="50"/>
-                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODn-X8-NCW">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="50"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Score" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-69-Gdm">
+                                                <rect key="frame" x="0.0" y="0.0" width="54" height="50"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="38" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4U-cu-2D4" userLabel="numeralScore">
+                                                <rect key="frame" x="54" y="0.0" width="84" height="50"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="textColor" red="0.43917477129999999" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="YQ7-Sq-Uzt"/>
@@ -365,13 +375,13 @@
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="trailing" secondItem="jXf-WX-mmI" secondAttribute="trailing" constant="20" id="T22-Nd-bcf"/>
                             <constraint firstItem="w8y-U6-aId" firstAttribute="centerY" secondItem="Tg3-qo-vzD" secondAttribute="centerY" constant="-50" id="W4Y-yD-V8H"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="centerX" secondItem="MrI-Dw-YQv" secondAttribute="trailing" constant="20" id="Wdh-YE-9ZR"/>
-                            <constraint firstItem="MrI-Dw-YQv" firstAttribute="trailing" secondItem="f8A-Sy-MF1" secondAttribute="trailing" constant="-40" id="YjM-YF-XGn"/>
+                            <constraint firstItem="MrI-Dw-YQv" firstAttribute="trailing" secondItem="f8A-Sy-MF1" secondAttribute="trailing" id="YjM-YF-XGn"/>
                             <constraint firstItem="MrI-Dw-YQv" firstAttribute="top" secondItem="f8A-Sy-MF1" secondAttribute="top" constant="10" id="bR3-mo-EeP"/>
-                            <constraint firstItem="w8y-U6-aId" firstAttribute="top" secondItem="f8A-Sy-MF1" secondAttribute="top" constant="10" id="bRi-Tc-EOG"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="trailing" secondItem="zS6-np-pED" secondAttribute="trailing" constant="30" id="bYB-xN-Qz3"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="bottom" secondItem="jXf-WX-mmI" secondAttribute="bottom" constant="20" id="hFW-gj-v99"/>
+                            <constraint firstItem="f8A-Sy-MF1" firstAttribute="bottom" secondItem="w8y-U6-aId" secondAttribute="bottom" constant="20" id="ioN-k4-eWO"/>
                             <constraint firstItem="w8y-U6-aId" firstAttribute="top" secondItem="jXf-WX-mmI" secondAttribute="bottom" id="ivH-dY-zMj"/>
-                            <constraint firstItem="w8y-U6-aId" firstAttribute="centerX" secondItem="Tg3-qo-vzD" secondAttribute="centerX" multiplier="1.5" id="kvR-et-Jhy"/>
+                            <constraint firstItem="w8y-U6-aId" firstAttribute="centerX" secondItem="jXf-WX-mmI" secondAttribute="centerX" id="kvR-et-Jhy"/>
                             <constraint firstItem="zS6-np-pED" firstAttribute="centerY" secondItem="Tg3-qo-vzD" secondAttribute="centerY" id="pE1-40-H6N"/>
                             <constraint firstItem="zS6-np-pED" firstAttribute="centerX" secondItem="Tg3-qo-vzD" secondAttribute="centerX" id="q6K-v9-xAA"/>
                             <constraint firstItem="zS6-np-pED" firstAttribute="leading" secondItem="f8A-Sy-MF1" secondAttribute="centerX" constant="20" id="u2v-uK-8zf">
@@ -385,7 +395,7 @@
                                 <exclude reference="NFd-Ge-T0O"/>
                                 <exclude reference="Wdh-YE-9ZR"/>
                                 <exclude reference="hFW-gj-v99"/>
-                                <exclude reference="bRi-Tc-EOG"/>
+                                <exclude reference="ioN-k4-eWO"/>
                                 <exclude reference="kvR-et-Jhy"/>
                                 <exclude reference="pE1-40-H6N"/>
                                 <exclude reference="u2v-uK-8zf"/>
@@ -398,16 +408,27 @@
                                 <include reference="Wdh-YE-9ZR"/>
                                 <include reference="hFW-gj-v99"/>
                                 <exclude reference="YjM-YF-XGn"/>
-                                <exclude reference="SO9-XC-BcB"/>
                                 <exclude reference="PDe-0s-aDD"/>
                                 <exclude reference="W4Y-yD-V8H"/>
-                                <include reference="bRi-Tc-EOG"/>
                                 <exclude reference="ivH-dY-zMj"/>
                                 <include reference="kvR-et-Jhy"/>
+                                <exclude reference="SO9-XC-BcB"/>
                                 <exclude reference="HSC-Ah-ak5"/>
                                 <include reference="pE1-40-H6N"/>
                                 <exclude reference="q6K-v9-xAA"/>
                                 <include reference="u2v-uK-8zf"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="ioN-k4-eWO"/>
+                                <exclude reference="57f-hO-8Jw"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="ioN-k4-eWO"/>
+                                <exclude reference="57f-hO-8Jw"/>
                             </mask>
                         </variation>
                     </view>
@@ -415,11 +436,13 @@
                     <connections>
                         <outlet property="bottomCollectionView" destination="zS6-np-pED" id="gPx-8M-VLU"/>
                         <outlet property="dragText" destination="w8y-U6-aId" id="ugJ-2w-P13"/>
+                        <outlet property="score" destination="P4U-cu-2D4" id="PLk-de-jol"/>
                         <outlet property="tempImageView" destination="NXC-BL-Z7r" id="jjh-4l-edW"/>
                         <outlet property="topCollectionView" destination="jXf-WX-mmI" id="Qz4-JA-DYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vRO-Jh-f5K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="0lO-2m-nrs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1492.753623188406" y="137.94642857142856"/>
         </scene>

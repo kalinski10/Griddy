@@ -143,9 +143,10 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
         }
         return true
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueTwo" {
-            let vc = segue.destination as! viewControllerThree
+            let vc = segue.destination as! ViewControllerThree
             vc.sliceImageArray = toSend
         }
     }

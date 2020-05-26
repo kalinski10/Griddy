@@ -8,17 +8,23 @@
 
 import UIKit
 
-class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDropDelegate {
+protocol UpdateScoreDelegate {
+    func updateScore(score: Double)
+}
+
+class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    var scoreDelegate: UpdateScoreDelegate!
     public var bottomCollection = [UIImage]()
+    public var correctImages = [UIImage]()
+    public var zScore: Double = 30.0
+    private static let kID = "bottomCollectioViewCell"
     
     override func draw(_ rect: CGRect) {
-        
         super.draw(rect)
         delegate = self
         dataSource = self
         dropDelegate = self
-
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -27,15 +33,26 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = dequeueReusableCell(withReuseIdentifier: "bottomCollectioViewCell", for: indexPath) as! CollectionViewCell
+        let cell = dequeueReusableCell(withReuseIdentifier: BottomCollectionView.kID, for: indexPath) as! CollectionViewCell
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        cell.translatesAutoresizingMaskIntoConstraints = false
         cell.bottomImageView.image = bottomCollection[indexPath.row]
-        cell.layer.borderWidth = CGFloat(2)
-        cell.layer.borderColor = CGColor(srgbRed: 212/255, green: 175/255, blue: 55/255, alpha: 1)
-
+        cell.layer.borderWidth = CGFloat(1)
+        cell.layer.borderColor = .gridyGold
         return cell
+        
     }
     
-    
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
+    */
+
+}
+extension BottomCollectionView: UICollectionViewDropDelegate {  // will add them to a new file
     
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         
@@ -52,18 +69,25 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
         coordinator.session.loadObjects(ofClass: UIImage.self) { items in
             guard let imageArray = items as? [UIImage] else {return}
             
-            self.bottomCollection.remove(at: destIndexPath.row)
-            self.bottomCollection.insert(imageArray.first!, at: destIndexPath.row)
-            collectionView.insertItems(at: [destIndexPath])
+            if imageArray.first!.pngData() == self.correctImages[destIndexPath.row].pngData(){
+            
+                self.zScore += 5
+                self.scoreDelegate.updateScore(score: self.zScore)
+                self.bottomCollection.remove(at: destIndexPath.row)
+                self.bottomCollection.insert(imageArray.first!, at: destIndexPath.row)
+                collectionView.insertItems(at: [destIndexPath])
+                print("performed")
+                print(self.zScore)
+            } else {
+                print("couldnt perform")
+                self.zScore -= 3.5
+                self.scoreDelegate.updateScore(score: self.zScore)
+                print(self.zScore)
+            }
         }
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func collectionView(_ collectionView: UICollectionView,   dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        return UICollectionViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
     }
-    */
-
 }
