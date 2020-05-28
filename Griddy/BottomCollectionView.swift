@@ -19,6 +19,7 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     public var correctImages = [UIImage]()
     public var zScore: Double = 30.0
     private static let kID = "bottomCollectioViewCell"
+    let shareVC = ShareViewController() // will have to revisit that
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -33,14 +34,13 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = dequeueReusableCell(withReuseIdentifier: BottomCollectionView.kID, for: indexPath) as! CollectionViewCell
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        cell.translatesAutoresizingMaskIntoConstraints = false
+        guard let cell = dequeueReusableCell(withReuseIdentifier: BottomCollectionView.kID, for: indexPath) as? CollectionViewCell else {
+            return CollectionViewCell.init() // gonna have to revisit that
+        }
         cell.bottomImageView.image = bottomCollection[indexPath.row]
         cell.layer.borderWidth = CGFloat(1)
         cell.layer.borderColor = .gridyGold
         return cell
-        
     }
     
     /*

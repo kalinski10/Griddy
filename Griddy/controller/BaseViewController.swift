@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     var localImages = [UIImage]()
     var imageToPass: UIImage!
@@ -22,9 +22,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectImageSet()
     }
     
-    @IBAction func mainUnwind(unwindSegue: UIStoryboardSegue){
-        
-    }
+    @IBAction func mainUnwind(unwindSegue: UIStoryboardSegue) { }
     
     @IBAction func griddyPickButton(_ sender: UIButton) {
         randomImage()
@@ -33,12 +31,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func CameraButton(_ sender: UIButton) {
         displayCamera()
-//        performSegue(withIdentifier: "segue", sender: self)
     }
     
     @IBAction func photoLibraryButton(_ sender: UIButton) {
         displayLibrary()
-//        performSegue(withIdentifier: "segue", sender:self)
     }
   
     func displayLibrary() {
@@ -105,6 +101,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(imagePicker, animated: true, completion: nil)
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imageToPass = tempImg
+        performSegue(withIdentifier: "segue", sender: self)
+//        picker.dismiss(animated: true, completion: nil)
+    }
+    
     func alertMessage(message: String?){
         
         let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
@@ -116,7 +120,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func collectImageSet() { //collecing all the integrated images
         
         localImages.removeAll()
-        let imageNames = ["cat", "dog", "umbrellas", "cake", "motorBike"]
+        let imageNames = ["cat", "dog", "umbrellas", "motorBike"]
         
         for name in imageNames {
             if let image = UIImage.init(named: name){
@@ -130,19 +134,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let randIndex = Int.random(in: 0..<localImages.count)
         imageToPass = localImages[randIndex]
     }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
-        imageToPass = tempImg
-        performSegue(withIdentifier: "segue", sender: self)
-        picker.dismiss(animated: true, completion: nil)
-    }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "segue" {
-            let vc = segue.destination as! ViewControllerTwo
+            let vc = segue.destination as! SliceViewController
             vc.imageRecieved = imageToPass
         }
     }

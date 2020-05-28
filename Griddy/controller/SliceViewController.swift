@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
+class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var imageRecieved: UIImage?
     var toSend = [UIImage]()
@@ -146,7 +146,7 @@ class ViewControllerTwo: UIViewController, UIGestureRecognizerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueTwo" {
-            let vc = segue.destination as! ViewControllerThree
+            let vc = segue.destination as! GameViewController
             vc.sliceImageArray = toSend
         }
     }

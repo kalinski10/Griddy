@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewControllerThree: ViewController {
+class GameViewController: UIViewController {
 
     public var sliceImageArray = [UIImage]()
     public var whiteImageArray = [UIImage]()
@@ -38,16 +38,16 @@ class ViewControllerThree: ViewController {
     
     private func setup() {
         topCollectionView.translatesAutoresizingMaskIntoConstraints = false
-//        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = false
         score.text = String(Int(bottomCollectionView.zScore))
 
-//        let topItemSize = topCollectionView.bounds.width/6 - 5
+        let topItemSize = topCollectionView.bounds.width/6 - 5
         let bottomItemSize = bottomCollectionView.bounds.width/4
         
-//        let TopLayout = UICollectionViewFlowLayout()
-//        TopLayout.itemSize = CGSize(width: topItemSize, height: topItemSize)
-//        TopLayout.minimumLineSpacing = 5
-//        TopLayout.minimumInteritemSpacing = 5
+        let TopLayout = UICollectionViewFlowLayout()
+        TopLayout.itemSize = CGSize(width: topItemSize, height: topItemSize)
+        TopLayout.minimumLineSpacing = 5
+        TopLayout.minimumInteritemSpacing = 5
         
         let bottomLayout = UICollectionViewFlowLayout()
         bottomLayout.itemSize = CGSize(width: bottomItemSize, height: bottomItemSize)
@@ -55,7 +55,7 @@ class ViewControllerThree: ViewController {
         bottomLayout.minimumInteritemSpacing = 0
        
         self.view.backgroundColor = .white
-//        topCollectionView.collectionViewLayout = TopLayout
+        topCollectionView.collectionViewLayout = TopLayout
         topCollectionView.backgroundColor = .white
         topCollectionView.isScrollEnabled = false
         
@@ -73,7 +73,7 @@ extension CGColor {
     }
 }
 
-extension ViewControllerThree: UpdateScoreDelegate {
+extension GameViewController: UpdateScoreDelegate {
     func updateScore(score: Double) {
         self.score.text = String(Int(score))
     }

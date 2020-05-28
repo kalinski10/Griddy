@@ -30,12 +30,18 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = dequeueReusableCell(withReuseIdentifier: TopCollectionView.kID, for: indexPath) as! CollectionViewCell
+        guard let cell = dequeueReusableCell(withReuseIdentifier: TopCollectionView.kID, for: indexPath) as? CollectionViewCell else {
+            return CollectionViewCell.init() // revisit
+        }
         cell.topImageView.image = topCollection[indexPath.row]
         cell.layer.borderWidth = CGFloat(2)
         cell.layer.borderColor = .gridyGold
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         print("Starting Index: \(sourceIndexPath.item)")
@@ -49,7 +55,7 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
 
             collectionView.performBatchUpdates({
                 self.topCollection.remove(at: sourceIndexPath.item)
-//                self.topCollection.insert(item.dragItem.localObject as! UIImage, at: destinationIndexPath.item)
+                self.topCollection.insert(item.dragItem.localObject as! UIImage, at: destinationIndexPath.item)
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
             }, completion: nil)
@@ -108,20 +114,18 @@ extension TopCollectionView: UICollectionViewDropDelegate {
     }
 }
 
-
-extension TopCollectionView: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = collectionView.bounds.width/6 - 5
-        return CGSize.init(width: itemSize, height: itemSize)
-    }
-    
-}
+//extension TopCollectionView: UICollectionViewDelegateFlowLayout {
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 5
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 5
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let itemSize = collectionView.bounds.width/6 - 5
+//        return CGSize.init(width: itemSize, height: itemSize)
+//    }
+//}
