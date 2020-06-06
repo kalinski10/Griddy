@@ -9,16 +9,15 @@
 import UIKit
 
 class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
-
+    
     var imageRecieved: UIImage?
     var toSend = [UIImage]()
+    var initialImageViewOffset = CGPoint()
     
     @IBOutlet weak var creationImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var sliceImageView: UIView!
     @IBOutlet weak var sliceTemp: UIImageView!
-    
-    var initialImageViewOffset = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,26 +102,26 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func configure() {
-    let moveGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImage(_:)))
-    let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotateImage(_:)))
-    let scaleGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(scaleImage(_:)))
-    creationImage.addGestureRecognizer(moveGestureRecognizer)
-    creationImage.addGestureRecognizer(rotateGestureRecognizer)
-    creationImage.addGestureRecognizer(scaleGestureRecognizer)
-    moveGestureRecognizer.delegate = self
-    rotateGestureRecognizer.delegate = self
-    scaleGestureRecognizer.delegate = self
+        let moveGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImage(_:)))
+        let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotateImage(_:)))
+        let scaleGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(scaleImage(_:)))
+        creationImage.addGestureRecognizer(moveGestureRecognizer)
+        creationImage.addGestureRecognizer(rotateGestureRecognizer)
+        creationImage.addGestureRecognizer(scaleGestureRecognizer)
+        moveGestureRecognizer.delegate = self
+        rotateGestureRecognizer.delegate = self
+        scaleGestureRecognizer.delegate = self
     }
     
     @objc func moveImage(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: creationImage.superview)
-                 
+        
         if sender.state == .began {
             initialImageViewOffset = creationImage.frame.origin
         }
-                 
+        
         let position = CGPoint(x: translation.x + initialImageViewOffset.x - creationImage.frame.origin.x, y: translation.y + initialImageViewOffset.y - creationImage.frame.origin.y)
-                 
+        
         creationImage.transform = creationImage.transform.translatedBy(x: position.x, y: position.y)
     }
     
@@ -148,17 +147,18 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
         if segue.identifier == "segueTwo" {
             let vc = segue.destination as! GameViewController
             vc.sliceImageArray = toSend
+            vc.hiddenImage = imageRecieved
         }
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

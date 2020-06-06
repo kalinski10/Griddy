@@ -11,9 +11,10 @@ import AVFoundation
 import Photos
 
 class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-
+    
     var localImages = [UIImage]()
     var imageToPass: UIImage!
+    var currentImageIndex = -1
     
     override func viewDidLoad() {
         
@@ -36,7 +37,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func photoLibraryButton(_ sender: UIButton) {
         displayLibrary()
     }
-  
+    
     func displayLibrary() {
         
         let sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -47,10 +48,12 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             switch status {
             case .notDetermined:
                 PHPhotoLibrary.requestAuthorization({(granted) in
-                    if granted == .authorized {
-                        self.presentImagePicker(sourceType: sourceType)
-                    } else {
-                        self.alertMessage(message: noPermissionMessage)
+                    DispatchQueue.main.async {
+                        if granted == .authorized {
+                            self.presentImagePicker(sourceType: sourceType)
+                        } else {
+                            self.alertMessage(message: noPermissionMessage)
+                        }
                     }
                 })
             case .authorized:
@@ -76,9 +79,11 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             switch status {
             case .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video, completionHandler: {(granted) in
-                    if granted {
-                        self.presentImagePicker(sourceType: sourceType)
-                    } else { self.alertMessage(message: noPermissionMessage)}
+                    DispatchQueue.main.async {
+                        if granted {
+                            self.presentImagePicker(sourceType: sourceType)
+                        } else { self.alertMessage(message: noPermissionMessage)}
+                    }
                 })
             case .authorized:
                 self.presentImagePicker(sourceType: sourceType)
@@ -105,8 +110,9 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
         imageToPass = tempImg
-        performSegue(withIdentifier: "segue", sender: self)
-//        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.performSegue(withIdentifier: "segue", sender: self)
+        }
     }
     
     func alertMessage(message: String?){
@@ -129,10 +135,15 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func randomImage() { //choosing a random picture
+    func randomImage() {
         
-        let randIndex = Int.random(in: 0..<localImages.count)
+        var randIndex = Int.random(in: 0..<localImages.count)
+        // making sure we everytime we have a different image
+        while currentImageIndex == randIndex {
+            randIndex = Int.random(in: 0..<localImages.count)
+        }
         imageToPass = localImages[randIndex]
+        currentImageIndex = randIndex
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

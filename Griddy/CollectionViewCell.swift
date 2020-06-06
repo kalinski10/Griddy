@@ -13,4 +13,5 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var topImageView: UIImageView!
     @IBOutlet weak var bottomImageView: UIImageView!
     
+    
 }
