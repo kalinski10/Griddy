@@ -38,6 +38,7 @@ class ShareViewController: UIViewController {
         let items = [name as Any, image as Any]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityController.popoverPresentationController?.sourceView = view
-        present(activityController, animated: true, completion: nil)
+        present(activityController, animated: true, completion: .none)
     }
+    
 }

@@ -33,6 +33,8 @@ class GameViewController: UIViewController {
         bottomCollectionView.scoreDelegate = self
         bottomCollectionView.correctMovesDelegate = self
     }
+
+    // need to add function to invalidate layout
     
     func addWhiteImages() {
         for _ in 1 ... 16 {
@@ -51,12 +53,10 @@ class GameViewController: UIViewController {
         topLayout.itemSize = CGSize(width: topItemSize, height: topItemSize)
         topLayout.minimumLineSpacing = 5
         topLayout.minimumInteritemSpacing = 5
-        topLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         bottomLayout.itemSize = CGSize(width: bottomItemSize, height: bottomItemSize)
         bottomLayout.minimumLineSpacing = 0
         bottomLayout.minimumInteritemSpacing = 0
-        bottomLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         topCollectionView.collectionViewLayout = topLayout
         topCollectionView.backgroundColor = .white
@@ -80,6 +80,7 @@ class GameViewController: UIViewController {
             vc.completedImageRecieved = hiddenImage
         }
     }
+    
 }
 
 extension CGColor {
@@ -96,7 +97,7 @@ extension GameViewController: UpdateScoreDelegate {
 
 extension GameViewController: TrackCorrectMovementsDelegate {
     func numberOfCorrectMoves(moves: Int) {
-        if moves == 16 { // currently its at 1 for testing // gonna chnage to 16
+        if moves == 1 { // currently its at 1 for testing // gonna chnage to 16
             performSegue(withIdentifier: "shareSegue", sender: self)
         }
     }

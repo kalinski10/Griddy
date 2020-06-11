@@ -136,12 +136,12 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func randomImage() {
-        
-        var randIndex = Int.random(in: 0..<localImages.count)
-        // making sure we everytime we have a different image
-        while currentImageIndex == randIndex {
+
+        var randIndex: Int
+        repeat { // repeating until idex is different, so that the rand image will different each time
             randIndex = Int.random(in: 0..<localImages.count)
-        }
+        } while currentImageIndex == randIndex
+        
         imageToPass = localImages[randIndex]
         currentImageIndex = randIndex
     }

@@ -305,12 +305,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zS6-np-pED" userLabel="bottomCollectionView" customClass="BottomCollectionView" customModule="Griddy" customModuleProvider="target">
-                                <rect key="frame" x="30" y="434" width="354" height="354"/>
+                                <rect key="frame" x="32" y="468.66666666666674" width="350" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="zS6-np-pED" secondAttribute="height" multiplier="315:315" id="2AR-go-9aV"/>
+                                    <constraint firstAttribute="width" constant="350" id="Emq-Hp-gUi"/>
+                                    <constraint firstAttribute="height" constant="350" id="Fyl-9J-Rja"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PsU-Vh-Zc1">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T2J-W2-qom">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -379,11 +380,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="zS6-np-pED" firstAttribute="top" secondItem="w8y-U6-aId" secondAttribute="bottom" constant="15" id="57f-hO-8Jw"/>
+                            <constraint firstItem="zS6-np-pED" firstAttribute="top" secondItem="w8y-U6-aId" secondAttribute="bottom" multiplier="1.1" constant="8" symbolic="YES" id="57f-hO-8Jw"/>
                             <constraint firstItem="jXf-WX-mmI" firstAttribute="leading" secondItem="f8A-Sy-MF1" secondAttribute="leading" constant="20" id="5zn-du-ch6">
                                 <variation key="heightClass=regular-widthClass=compact" constant="20"/>
                             </constraint>
-                            <constraint firstItem="zS6-np-pED" firstAttribute="leading" secondItem="f8A-Sy-MF1" secondAttribute="leading" constant="30" id="HSC-Ah-ak5"/>
                             <constraint firstItem="jXf-WX-mmI" firstAttribute="top" secondItem="MrI-Dw-YQv" secondAttribute="bottom" constant="15" id="IgC-8K-El1"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="centerX" secondItem="jXf-WX-mmI" secondAttribute="trailing" constant="20" id="NFd-Ge-T0O"/>
                             <constraint firstItem="w8y-U6-aId" firstAttribute="centerX" secondItem="Tg3-qo-vzD" secondAttribute="centerX" id="PDe-0s-aDD"/>
@@ -393,16 +393,12 @@
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="centerX" secondItem="MrI-Dw-YQv" secondAttribute="trailing" constant="20" id="Wdh-YE-9ZR"/>
                             <constraint firstItem="MrI-Dw-YQv" firstAttribute="trailing" secondItem="f8A-Sy-MF1" secondAttribute="trailing" id="YjM-YF-XGn"/>
                             <constraint firstItem="MrI-Dw-YQv" firstAttribute="top" secondItem="f8A-Sy-MF1" secondAttribute="top" constant="10" id="bR3-mo-EeP"/>
-                            <constraint firstItem="f8A-Sy-MF1" firstAttribute="trailing" secondItem="zS6-np-pED" secondAttribute="trailing" constant="30" id="bYB-xN-Qz3"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="bottom" secondItem="jXf-WX-mmI" secondAttribute="bottom" constant="20" id="hFW-gj-v99"/>
                             <constraint firstItem="f8A-Sy-MF1" firstAttribute="bottom" secondItem="w8y-U6-aId" secondAttribute="bottom" constant="20" id="ioN-k4-eWO"/>
                             <constraint firstItem="w8y-U6-aId" firstAttribute="top" secondItem="jXf-WX-mmI" secondAttribute="bottom" id="ivH-dY-zMj"/>
                             <constraint firstItem="w8y-U6-aId" firstAttribute="centerX" secondItem="jXf-WX-mmI" secondAttribute="centerX" id="kvR-et-Jhy"/>
                             <constraint firstItem="zS6-np-pED" firstAttribute="centerY" secondItem="Tg3-qo-vzD" secondAttribute="centerY" id="pE1-40-H6N"/>
                             <constraint firstItem="zS6-np-pED" firstAttribute="centerX" secondItem="Tg3-qo-vzD" secondAttribute="centerX" id="q6K-v9-xAA"/>
-                            <constraint firstItem="zS6-np-pED" firstAttribute="leading" secondItem="f8A-Sy-MF1" secondAttribute="centerX" constant="20" id="u2v-uK-8zf">
-                                <variation key="heightClass=compact" constant="20"/>
-                            </constraint>
                             <constraint firstItem="MrI-Dw-YQv" firstAttribute="leading" secondItem="f8A-Sy-MF1" secondAttribute="leading" id="w1P-5Q-fJ6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f8A-Sy-MF1"/>
@@ -414,7 +410,6 @@
                                 <exclude reference="ioN-k4-eWO"/>
                                 <exclude reference="kvR-et-Jhy"/>
                                 <exclude reference="pE1-40-H6N"/>
-                                <exclude reference="u2v-uK-8zf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -429,10 +424,8 @@
                                 <exclude reference="W4Y-yD-V8H"/>
                                 <exclude reference="ivH-dY-zMj"/>
                                 <include reference="kvR-et-Jhy"/>
-                                <exclude reference="HSC-Ah-ak5"/>
                                 <include reference="pE1-40-H6N"/>
                                 <exclude reference="q6K-v9-xAA"/>
-                                <include reference="u2v-uK-8zf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">

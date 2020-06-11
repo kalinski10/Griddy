@@ -45,6 +45,9 @@ class BottomCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
         cell.bottomImageView.image = plainImages[indexPath.row]
         cell.layer.borderWidth = CGFloat(1)
         cell.layer.borderColor = .gridyGold
+        let width = frame.size.width / 4
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: width, height: width)
         return cell
     }
     
@@ -75,7 +78,6 @@ extension BottomCollectionView: UICollectionViewDropDelegate {  // will add them
                 self.plainImages.remove(at: destIndexPath.row)
                 self.plainImages.insert(imageArray.first!, at: destIndexPath.row)
                 collectionView.insertItems(at: [destIndexPath])
-//                collectionView.deleteItems(at: [destIndexPath])
                 print("performed")
                 print(self.zScore)
             } else {

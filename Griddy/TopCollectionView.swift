@@ -28,7 +28,9 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        let width = collectionView.bounds.width / 6 - 5
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: width, height: width)
         if indexPath.row < shuffledImages.count {
             guard let cell = dequeueReusableCell(withReuseIdentifier: TopCollectionView.kID, for: indexPath) as? CollectionViewCell else { return CollectionViewCell() } // also cghnage the bottom colletion view
             cell.topImageView.image = shuffledImages[indexPath.row]
@@ -51,8 +53,21 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
             image.leadingAnchor.constraint(equalTo: eyeCell.leadingAnchor).isActive = true
             image.trailingAnchor.constraint(equalTo: eyeCell.trailingAnchor).isActive = true
             image.contentMode = .scaleAspectFit
+            let eyeButton = UIButton()
+            eyeCell.addSubview(eyeButton)
+            eyeButton.translatesAutoresizingMaskIntoConstraints = false
+            eyeButton.topAnchor.constraint(equalTo: image.topAnchor).isActive = true
+            eyeButton.bottomAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
+            eyeButton.leadingAnchor.constraint(equalTo: image.leadingAnchor).isActive = true
+            eyeButton.trailingAnchor.constraint(equalTo: image.trailingAnchor).isActive = true
+            eyeButton.addTarget(self, action: #selector(eyeTapped), for: .touchUpInside)
+            eyeButton.backgroundColor = .red // temporary just for troubleshooting
             return eyeCell
         }
+    }
+    
+    @objc public func eyeTapped() { // need to mve them all into the the gameVc in order to get it working
+        print("eye Button Tapper")
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -64,16 +79,22 @@ class TopCollectionView: UICollectionView, UICollectionViewDataSource, UICollect
         if indexPath.row == shuffledImages.count + 1 { // does nothing
             print("hidden image view")
         }
+        print("you have selcted the item at index \(indexPath.row)")
     }
     
     func collectionView(_ collectionView: UICollectionView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
-         return true
+//        let section = collectionView.numberOfSections
+//        let items = collectionView.numberOfItems(inSection: section)
+//        let indexPath = IndexPath(item: items, section: section)
+//        if indexPath.row > shuffledImages.count {
+//            return false
+//        }
+//        else {
+//            return true
+//        }
+        return true // unnessecary unless i wanna disable a drop on certain cells // like an empty cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
-        
-    }
-    
+   
 }
 
 extension TopCollectionView: UICollectionViewDragDelegate {
@@ -86,10 +107,9 @@ extension TopCollectionView: UICollectionViewDragDelegate {
             dragItem.localObject = dragItem
             return [dragItem]
         }
-        let emptyString = ""
-        return[UIDragItem.init(itemProvider: NSItemProvider(object: emptyString as NSItemProviderWriting))]
+        return[]
     }
-    
+ 
 }
 
 extension TopCollectionView: UICollectionViewDropDelegate {
