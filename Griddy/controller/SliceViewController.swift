@@ -51,7 +51,6 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
         UIGraphicsBeginImageContextWithOptions(sliceImageView.bounds.size, false, 0)
         sliceImageView.drawHierarchy(in: sliceImageView.bounds, afterScreenUpdates: true)
         let screenShot = UIGraphicsGetImageFromCurrentImageContext()!
-        
         return screenShot
         
     }
