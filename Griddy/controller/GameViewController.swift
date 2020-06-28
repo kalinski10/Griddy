@@ -15,12 +15,16 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     public var whiteImageArray = [UIImage]()
     private var shuffledImages = [UIImage]()
     var hiddenImage: UIImage?
-    let topLayout = UICollectionViewFlowLayout()
-    let bottomLayout = UICollectionViewFlowLayout()
-        
+    private let topLayout = UICollectionViewFlowLayout()
+    private let bottomLayout = UICollectionViewFlowLayout()
+    let sliceVC = SliceViewController()
+    
     private var zScore: Double = 30.0
     private var correctMoves: Int = 0
+    private var topCollectionIndexTracker = 0
+
     
+    @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var hintImageView: UIImageView!
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var bottomCollectionView: UICollectionView!
@@ -38,9 +42,9 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     private func setup() {
-            
+        
         hintImageView.image = hiddenImage
-        hintImageView.layer.borderColor = .gridyGold
+        hintImageView.layer.borderColor = UIColor.gridyGold.cgColor
         hintImageView.layer.borderWidth = 2
         
         topCollectionView.isScrollEnabled = false
@@ -51,7 +55,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         topCollectionView.dragInteractionEnabled = true
         
         bottomCollectionView.isScrollEnabled = false
-        bottomCollectionView.layer.borderColor = .gridyGold
+        bottomCollectionView.layer.borderColor = UIColor.gridyGold.cgColor
         bottomCollectionView.layer.borderWidth = CGFloat(2)
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
@@ -74,7 +78,9 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         topCollectionView.collectionViewLayout = topLayout
         bottomCollectionView.collectionViewLayout = bottomLayout
-        
+        topCollectionView.reloadData()
+        bottomCollectionView.reloadData()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,64 +97,72 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         if collectionView == topCollectionView {
             
-//            let width = collectionView.bounds.width / 6 - 5
-//            let layout = UICollectionViewFlowLayout()
-//            layout.itemSize = CGSize(width: width, height: width)
-            
             if indexPath.row < shuffledImages.count {
                 
-                guard let cell = topCollectionView.dequeueReusableCell(withReuseIdentifier: "topCollectionViewCell", for: indexPath) as? CollectionViewCell else { return CollectionViewCell() }
+                guard let cell = topCollectionView.dequeueReusableCell(withReuseIdentifier: ID.topCell, for: indexPath) as? CollectionViewCell else {
+                    print("could not find topCollection View Cells")
+                    return CollectionViewCell()
+                }
                 cell.topImageView.image = shuffledImages[indexPath.row]
                 cell.layer.borderWidth = CGFloat(2)
-                cell.layer.borderColor = .gridyGold
+                cell.layer.borderColor = UIColor.gridyGold.cgColor
                 return cell
                 
             } else if indexPath.row == shuffledImages.count {
                 
-                let emptyCell = topCollectionView.dequeueReusableCell(withReuseIdentifier: "emptyCell", for: indexPath)
+                let emptyCell = topCollectionView.dequeueReusableCell(withReuseIdentifier: ID.emptyCell, for: indexPath)
                 return emptyCell
                 
             } else {
                 
-                let eyeCell = topCollectionView.dequeueReusableCell(withReuseIdentifier: "eyeCell", for: indexPath)
+                let eyeCell = topCollectionView.dequeueReusableCell(withReuseIdentifier: ID.eyeCell, for: indexPath)
                 eyeCell.isUserInteractionEnabled = true
-                let eyeButton = UIButton()
-                eyeCell.addSubview(eyeButton)
-                eyeButton.translatesAutoresizingMaskIntoConstraints = false
-                eyeButton.setImage(UIImage(named: "eye"), for: .normal)
-                eyeButton.topAnchor.constraint(equalTo: eyeCell.topAnchor).isActive = true
-                eyeButton.bottomAnchor.constraint(equalTo: eyeCell.bottomAnchor).isActive = true
-                eyeButton.leadingAnchor.constraint(equalTo: eyeCell.leadingAnchor).isActive = true
-                eyeButton.trailingAnchor.constraint(equalTo: eyeCell.trailingAnchor).isActive = true
-                eyeButton.addTarget(self, action: #selector(self.eyeTapped), for: .touchUpInside)
-                return eyeCell
+                if eyeCell.subviews.count == 1 { // checking if the eyeButton is already present
+                    let eyeButton = UIButton()
+                    eyeCell.addSubview(eyeButton)
+                    eyeButton.translatesAutoresizingMaskIntoConstraints = false
+                    eyeButton.setImage(Constants.Image.eye, for: .normal)
+                    NSLayoutConstraint.activate([
+                    eyeButton.topAnchor.constraint(equalTo: eyeCell.topAnchor),
+                    eyeButton.bottomAnchor.constraint(equalTo: eyeCell.bottomAnchor),
+                    eyeButton.leadingAnchor.constraint(equalTo: eyeCell.leadingAnchor),
+                    eyeButton.trailingAnchor.constraint(equalTo: eyeCell.trailingAnchor) ])
+                    eyeButton.addTarget(self, action: #selector(self.eyeTapped), for: .touchUpInside)
+                }
                 
+                return eyeCell
             }
         } else {
-            guard let bottomCell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: "bottomCollectioViewCell", for: indexPath) as? CollectionViewCell else { return CollectionViewCell.init() }
+            guard let bottomCell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: ID.bottomCell, for: indexPath) as? CollectionViewCell else {
+                print("couldnt find bottomCollectionViewCell")
+                return CollectionViewCell.init()
+            }
             bottomCell.bottomImageView.image = whiteImageArray[indexPath.row]
             bottomCell.layer.borderWidth = CGFloat(1)
-            bottomCell.layer.borderColor = .gridyGold
-//            let bottomWidth = collectionView.bounds.width / 4
-//            let bottomLayout = UICollectionViewFlowLayout()
-//            bottomLayout.itemSize = CGSize(width: bottomWidth, height: bottomWidth)
+            bottomCell.layer.borderColor = UIColor.gridyGold.cgColor
             return bottomCell
         }
     }
     
     @objc func eyeTapped() {
-        
-        hintImageView.isHidden = false
+        animateHintViewPopup()
         _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.hideHintImage), userInfo: nil, repeats: false)
     }
     
     @objc func hideHintImage(){
-        hintImageView.isHidden = true
+
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .transitionFlipFromTop, animations: {
+            self.hintView.transform = .init(translationX: 500, y: 500)
+        }, completion: { (success) in
+            self.hintView.isHidden = true
+            self.hintView.transform = .identity
+        })
     }
     
-    // need to add function to invalidate layout // can find it on youtube
-    
-    
+    func animateHintViewPopup() {
+        UIView.transition(with: hintView, duration: 0.5, options: .transitionFlipFromBottom, animations: { self.hintView.isHidden = false}, completion: nil)
+    }
+
     
     func addWhiteImages() {
         for _ in 1 ... 16 {
@@ -156,14 +170,21 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        topCollectionView.reloadData()
+        bottomCollectionView.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "shareSegue" {
+        if segue.identifier == Constants.Segue.shareVC {
             
-            let vc = segue.destination as! ShareViewController
+            guard let vc = segue.destination as? ShareViewController else {
+                print("could not find ShareViewController")
+                return
+            }
             vc.textRecieved = "Game over, congratulations! Your score is \(score.text!).\nShare this with you friends!"
             vc.scoreRecieved = score.text
             vc.completedImageRecieved = hiddenImage
-            
         }
     }
     
@@ -176,11 +197,12 @@ extension GameViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         if indexPath.row < shuffledImages.count { // checks if its within the indexPath
             
+            topCollectionIndexTracker = indexPath.row
             let item = shuffledImages[indexPath.row]
             let itemProvider = NSItemProvider(object: item as UIImage)
             let dragItem = UIDragItem(itemProvider: itemProvider)
             dragItem.localObject = dragItem
-            if item.pngData() == whiteImageArray[1].pngData() { // checks if its a white image
+            if item.pngData() == Constants.Image.white.pngData() { // checks if its a white image
                 return []
             } else {
                 return [dragItem]
@@ -205,7 +227,10 @@ extension GameViewController: UICollectionViewDropDelegate {
             }
             
             coordinator.session.loadObjects(ofClass: UIImage.self) { items in
-                guard let imageArray = items as? [UIImage] else {return}
+                guard let imageArray = items as? [UIImage] else {
+                    print("invalid Image Array")
+                    return
+                }
                 
                 if imageArray.first!.pngData() == self.sliceImageArray[destIndexPath.row].pngData(){
                     
@@ -214,12 +239,12 @@ extension GameViewController: UICollectionViewDropDelegate {
                     self.correctMoves += 1
                     self.whiteImageArray.remove(at: destIndexPath.row)
                     self.whiteImageArray.insert(imageArray.first!, at: destIndexPath.row)
-                    self.shuffledImages.remove(at: 2) //FIXME: need the index path of the drag item
-                    self.shuffledImages.insert(UIImage.init(named: "whiteImages")!, at: 2)//FIXME: need the index path of the drag item
+                    self.shuffledImages.remove(at: self.topCollectionIndexTracker)
+                    self.shuffledImages.insert(Constants.Image.white, at: self.topCollectionIndexTracker)
                     self.topCollectionView.reloadData()
                     collectionView.reloadData()
                     if self.correctMoves == 16 {
-                        self.performSegue(withIdentifier: "shareSegue", sender: self)
+                        self.performSegue(withIdentifier: Constants.Segue.shareVC, sender: self)
                     }
                     
                 } else {
@@ -240,10 +265,46 @@ extension GameViewController: UICollectionViewDropDelegate {
     }
     
 }
+//MARK: - FLOW LAYOUT DELEGATE
 
-// MARK: - OTHER EXTENSIONS
-extension CGColor {  // separate file // should add to enum // create as uicolour - better
-    static var gridyGold: CGColor {
-        return CGColor(srgbRed: 212/255, green: 175/255, blue: 55/255, alpha: 1)
+extension GameViewController: UICollectionViewDelegateFlowLayout {
+
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == topCollectionView {
+
+            let topWidth = topCollectionView.bounds.width / 6 - 5
+            return CGSize(width: topWidth, height: topWidth)
+        } else {
+
+            let bottomWidth = bottomCollectionView.bounds.width / 4
+            return CGSize(width: bottomWidth, height: bottomWidth)
+        }
     }
+
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == topCollectionView {
+            return 5
+        } else {
+            return 0
+        }
+    }
+
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == topCollectionView {
+            return 5
+        } else {
+            return 0
+        }
+    }
+
+}
+
+// MARK: - CONSTANTS
+private enum ID {
+
+    static let topCell = "topCollectionViewCell"
+    static let emptyCell = "emptyCell"
+    static let eyeCell = "eyeCell"
+    static let bottomCell = "bottomCollectioViewCell"
+    
 }

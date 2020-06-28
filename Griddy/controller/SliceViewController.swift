@@ -12,7 +12,7 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var imageRecieved: UIImage?
     var toSend = [UIImage]()
-    var initialImageViewOffset = CGPoint()
+    private var initialImageViewOffset = CGPoint()
     
     @IBOutlet weak var creationImage: UIImageView!
     @IBOutlet weak var backImage: UIImageView!
@@ -21,7 +21,7 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         sliceImageView.backgroundColor = .white
         creationImage.image = imageRecieved
         backImage.image = imageRecieved
@@ -42,10 +42,10 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             print("Image not found")
         }
-        performSegue(withIdentifier: "segueTwo", sender: self)
+        performSegue(withIdentifier: Constants.Segue.gameVC, sender: self)
     }
     
-    func composeScreenShot() -> UIImage {
+    private func composeScreenShot() -> UIImage {
         
         sliceTemp.isHidden = true
         UIGraphicsBeginImageContextWithOptions(sliceImageView.bounds.size, false, 0)
@@ -56,7 +56,7 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    func slice(image: UIImage, into howMany: Int) -> [UIImage] {
+    private func slice(image: UIImage, into howMany: Int) -> [UIImage] {
         let width: CGFloat
         let height: CGFloat
         
@@ -100,7 +100,7 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
         return images
     }
     
-    func configure() {
+    private func configure() {
         let moveGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImage(_:)))
         let rotateGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotateImage(_:)))
         let scaleGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(scaleImage(_:)))
@@ -143,21 +143,14 @@ class SliceViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueTwo" {
-            let vc = segue.destination as! GameViewController
+        if segue.identifier == Constants.Segue.gameVC {
+            guard let vc = segue.destination as? GameViewController else {
+                print("could not find GameViewController")
+                return
+            }
             vc.sliceImageArray = toSend
             vc.hiddenImage = imageRecieved
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

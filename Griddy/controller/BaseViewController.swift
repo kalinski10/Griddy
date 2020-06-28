@@ -12,9 +12,9 @@ import Photos
 
 class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-    var localImages = [UIImage]()
-    var imageToPass: UIImage!
-    var currentImageIndex = -1
+    private var localImages = [UIImage]()
+    public var imageToPass: UIImage!
+    private var currentImageIndex = -1
     
     override func viewDidLoad() {
         
@@ -27,7 +27,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBAction func griddyPickButton(_ sender: UIButton) {
         randomImage()
-        performSegue(withIdentifier: "segue", sender: self)
+        performSegue(withIdentifier: Constants.Segue.sliceVC, sender: self)
     }
     
     @IBAction func CameraButton(_ sender: UIButton) {
@@ -38,7 +38,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         displayLibrary()
     }
     
-    func displayLibrary() {
+    private func displayLibrary() {
         
         let sourceType = UIImagePickerController.SourceType.photoLibrary
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -68,7 +68,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func displayCamera() {
+    private func displayCamera() {
         
         let sourceType = UIImagePickerController.SourceType.camera
         
@@ -98,7 +98,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     
-    func presentImagePicker(sourceType: UIImagePickerController.SourceType){
+    private func presentImagePicker(sourceType: UIImagePickerController.SourceType){
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -111,11 +111,11 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let tempImg = info [UIImagePickerController.InfoKey.originalImage] as? UIImage
         imageToPass = tempImg
         picker.dismiss(animated: true) {
-            self.performSegue(withIdentifier: "segue", sender: self)
+            self.performSegue(withIdentifier: Constants.Segue.sliceVC, sender: self)
         }
     }
     
-    func alertMessage(message: String?){
+    private func alertMessage(message: String?){
         
         let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
         let OKaction = UIAlertAction(title: "Got it", style: .cancel)
@@ -123,20 +123,19 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         present(alertController, animated: true)
     }
     
-    func collectImageSet() { //collecing all the integrated images
+    private func collectImageSet() { //collecing all the integrated images
         
         localImages.removeAll()
-        let imageNames = ["cat", "dog", "umbrellas", "motorBike"]
+        let imageNames = [Constants.Image.Puzzle.cat, Constants.Image.Puzzle.dog, Constants.Image.Puzzle.umbrella, Constants.Image.Puzzle.bike, Constants.Image.Puzzle.nature]
         
-        for name in imageNames {
-            if let image = UIImage.init(named: name){
+        for image in imageNames {
                 localImages.append(image)
-            }
         }
+        
     }
     
-    func randomImage() {
-
+    private func randomImage() {
+        
         var randIndex: Int
         repeat { // repeating until idex is different, so that the rand image will different each time
             randIndex = Int.random(in: 0..<localImages.count)
@@ -144,14 +143,20 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         imageToPass = localImages[randIndex]
         currentImageIndex = randIndex
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "segue" {
-            let vc = segue.destination as! SliceViewController
+        if segue.identifier == Constants.Segue.sliceVC {
+            guard let vc = segue.destination as? SliceViewController else {
+               print("could not find SliceViewController")
+                return
+            }
             vc.imageRecieved = imageToPass
         }
     }
     
 }
+
+
