@@ -21,8 +21,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     private var zScore: Double = 30.0
     private var correctMoves: Int = 0
-    private var topCollectionIndexTracker = 0
-
+    private var wrongMoves: Int = 0
+    private var successiveCorrectMoves: Int = 0
+    private var topCollectionIndexTracker: Int = 0
+    
     
     @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var hintImageView: UIImageView!
@@ -80,7 +82,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         bottomCollectionView.collectionViewLayout = bottomLayout
         topCollectionView.reloadData()
         bottomCollectionView.reloadData()
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -123,10 +125,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                     eyeButton.translatesAutoresizingMaskIntoConstraints = false
                     eyeButton.setImage(Constants.Image.eye, for: .normal)
                     NSLayoutConstraint.activate([
-                    eyeButton.topAnchor.constraint(equalTo: eyeCell.topAnchor),
-                    eyeButton.bottomAnchor.constraint(equalTo: eyeCell.bottomAnchor),
-                    eyeButton.leadingAnchor.constraint(equalTo: eyeCell.leadingAnchor),
-                    eyeButton.trailingAnchor.constraint(equalTo: eyeCell.trailingAnchor) ])
+                        eyeButton.topAnchor.constraint(equalTo: eyeCell.topAnchor),
+                        eyeButton.bottomAnchor.constraint(equalTo: eyeCell.bottomAnchor),
+                        eyeButton.leadingAnchor.constraint(equalTo: eyeCell.leadingAnchor),
+                        eyeButton.trailingAnchor.constraint(equalTo: eyeCell.trailingAnchor) ])
                     eyeButton.addTarget(self, action: #selector(self.eyeTapped), for: .touchUpInside)
                 }
                 
@@ -146,11 +148,13 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     @objc func eyeTapped() {
         animateHintViewPopup()
+        zScore -= 2
+        score.text = String(Int(zScore))
         _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.hideHintImage), userInfo: nil, repeats: false)
     }
     
     @objc func hideHintImage(){
-
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .transitionFlipFromTop, animations: {
             self.hintView.transform = .init(translationX: 500, y: 500)
         }, completion: { (success) in
@@ -162,12 +166,43 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     func animateHintViewPopup() {
         UIView.transition(with: hintView, duration: 0.5, options: .transitionFlipFromBottom, animations: { self.hintView.isHidden = false}, completion: nil)
     }
-
+    
     
     func addWhiteImages() {
         for _ in 1 ... 16 {
             whiteImageArray.append(#imageLiteral(resourceName: "whiteImages"))
         }
+    }
+    
+    func correctMovePerformed() {
+        
+        successiveCorrectMoves += 1
+        if successiveCorrectMoves >= 3 {
+            zScore += 10
+        } else {
+            zScore += 5
+        }
+        score.text = String(Int(zScore))
+        correctMoves += 1
+        wrongMoves = 0
+        
+        if self.correctMoves == 16 {
+            self.performSegue(withIdentifier: Constants.Segue.shareVC, sender: self)
+        }
+        
+    }
+    
+    func wrongMovePerformed() {
+        
+        wrongMoves += 1
+        successiveCorrectMoves = 0
+        if wrongMoves >= 5 {
+            zScore -= 5
+        } else {
+            zScore -= 3.5
+        }
+        score.text = String(Int(zScore))
+        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -182,7 +217,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 print("could not find ShareViewController")
                 return
             }
-            vc.textRecieved = "Game over, congratulations! Your score is \(score.text!).\nShare this with you friends!"
+            vc.textRecieved = String(format: Constants.String.gameOverText, score.text ?? "unknown")
             vc.scoreRecieved = score.text
             vc.completedImageRecieved = hiddenImage
         }
@@ -232,25 +267,29 @@ extension GameViewController: UICollectionViewDropDelegate {
                     return
                 }
                 
-                if imageArray.first!.pngData() == self.sliceImageArray[destIndexPath.row].pngData(){
+                guard let firstImage = imageArray.first else {
+                    print("missing drag item")
+                    return
+                }
+
+                if firstImage.pngData() == self.sliceImageArray[destIndexPath.row].pngData(){
                     
-                    self.zScore += 5
-                    self.score.text = String(Int(self.zScore))
-                    self.correctMoves += 1
-                    self.whiteImageArray.remove(at: destIndexPath.row)
-                    self.whiteImageArray.insert(imageArray.first!, at: destIndexPath.row)
+                    self.correctMovePerformed()
                     self.shuffledImages.remove(at: self.topCollectionIndexTracker)
                     self.shuffledImages.insert(Constants.Image.white, at: self.topCollectionIndexTracker)
                     self.topCollectionView.reloadData()
-                    collectionView.reloadData()
-                    if self.correctMoves == 16 {
-                        self.performSegue(withIdentifier: Constants.Segue.shareVC, sender: self)
-                    }
+                    self.bottomCollectionView.reloadData()
+                    self.whiteImageArray.remove(at: destIndexPath.row)
+                    self.whiteImageArray.insert(firstImage, at: destIndexPath.row)
+                    let hapticFeedback = UINotificationFeedbackGenerator()
+                    hapticFeedback.notificationOccurred(.success)
+                    AudioServicesPlayAlertSound(SystemSoundID(ID.rightTone))
                     
                 } else {
-                    self.zScore -= 3.5
-                    self.score.text = String(Int(self.zScore))
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    self.wrongMovePerformed()
+                    let hapticFeedback = UINotificationFeedbackGenerator()
+                    hapticFeedback.notificationOccurred(.error)
+                    AudioServicesPlayAlertSound(SystemSoundID(ID.worngTone))
                 }
             }
         }
@@ -268,19 +307,19 @@ extension GameViewController: UICollectionViewDropDelegate {
 //MARK: - FLOW LAYOUT DELEGATE
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == topCollectionView {
-
+            
             let topWidth = topCollectionView.bounds.width / 6 - 5
             return CGSize(width: topWidth, height: topWidth)
         } else {
-
+            
             let bottomWidth = bottomCollectionView.bounds.width / 4
             return CGSize(width: bottomWidth, height: bottomWidth)
         }
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if collectionView == topCollectionView {
             return 5
@@ -288,7 +327,7 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
             return 0
         }
     }
-
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if collectionView == topCollectionView {
             return 5
@@ -296,15 +335,17 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
             return 0
         }
     }
-
+    
 }
 
 // MARK: - CONSTANTS
 private enum ID {
-
+    
     static let topCell = "topCollectionViewCell"
     static let emptyCell = "emptyCell"
     static let eyeCell = "eyeCell"
     static let bottomCell = "bottomCollectioViewCell"
+    static let rightTone = 1052
+    static let worngTone = 1053
     
 }

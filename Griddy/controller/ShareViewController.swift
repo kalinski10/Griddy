@@ -33,7 +33,7 @@ class ShareViewController: UIViewController {
     
     func displaySharingOptions() {
         
-        let name = "Griddy \nMy score is \(scoreRecieved!)! Can you beat it?"
+        let name = String(format: Constants.String.sharingScore, scoreRecieved ?? "unknown")
         let image = completedImageRecieved
         let items = [name as Any, image as Any]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)

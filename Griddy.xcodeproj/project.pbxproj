@@ -89,11 +89,6 @@
 				4C93D367237DECC200AAD124 /* view */,
 				4C93D366237DECB600AAD124 /* controller */,
 				4C93D365237DECA500AAD124 /* supporting files */,
-				4C93D351237DEC5C00AAD124 /* AppDelegate.swift */,
-				4C93D353237DEC5C00AAD124 /* SceneDelegate.swift */,
-				4C93D35A237DEC5E00AAD124 /* Assets.xcassets */,
-				4C93D35C237DEC5E00AAD124 /* LaunchScreen.storyboard */,
-				4C93D35F237DEC5E00AAD124 /* Info.plist */,
 				4C5887FC24A8AFEE00E7984C /* Enums */,
 			);
 			path = Griddy;
@@ -102,6 +97,11 @@
 		4C93D365237DECA500AAD124 /* supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				4C93D351237DEC5C00AAD124 /* AppDelegate.swift */,
+				4C93D353237DEC5C00AAD124 /* SceneDelegate.swift */,
+				4C93D35A237DEC5E00AAD124 /* Assets.xcassets */,
+				4C93D35C237DEC5E00AAD124 /* LaunchScreen.storyboard */,
+				4C93D35F237DEC5E00AAD124 /* Info.plist */,
 			);
 			path = "supporting files";
 			sourceTree = "<group>";
@@ -358,7 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H67HBX73UR;
-				INFOPLIST_FILE = Griddy/Info.plist;
+				INFOPLIST_FILE = "Griddy/supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -376,7 +376,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H67HBX73UR;
-				INFOPLIST_FILE = Griddy/Info.plist;
+				INFOPLIST_FILE = "Griddy/supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

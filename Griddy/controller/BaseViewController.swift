@@ -23,6 +23,10 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         collectImageSet()
     }
     
+    @IBAction func helpButton(_ sender: Any) {
+        performSegue(withIdentifier: Constants.Segue.helpVC, sender: self)
+    }
+    
     @IBAction func mainUnwind(unwindSegue: UIStoryboardSegue) { }
     
     @IBAction func griddyPickButton(_ sender: UIButton) {
@@ -43,7 +47,6 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let sourceType = UIImagePickerController.SourceType.photoLibrary
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let status = PHPhotoLibrary.authorizationStatus()
-            let noPermissionMessage = "Looks like Gridy doesn't have access to your photos :( please use settings app on your device to permit Gridy accessing your library"
             
             switch status {
             case .notDetermined:
@@ -52,19 +55,19 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                         if granted == .authorized {
                             self.presentImagePicker(sourceType: sourceType)
                         } else {
-                            self.alertMessage(message: noPermissionMessage)
+                            self.alertMessage(message: Constants.String.NoPermissionMessage.photoLibrary)
                         }
                     }
                 })
             case .authorized:
                 self.presentImagePicker(sourceType: sourceType)
             case .denied, .restricted:
-                alertMessage(message: noPermissionMessage)
+                alertMessage(message: Constants.String.NoPermissionMessage.photoLibrary)
             @unknown default:
                 fatalError()
             }
         } else {
-            self.alertMessage(message: "Sincere apologies, it looks like we can't access your photo library at this time")
+            self.alertMessage(message: Constants.String.CantAccess.photoLibrary )
         }
     }
     
@@ -74,7 +77,6 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let status = AVCaptureDevice.authorizationStatus(for: .video)
-            let noPermissionMessage = "Looks like Gridy doesn't have access to your camera :( please use settings app on your device to permit Gridy accessing your camera"
             
             switch status {
             case .notDetermined:
@@ -82,18 +84,18 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     DispatchQueue.main.async {
                         if granted {
                             self.presentImagePicker(sourceType: sourceType)
-                        } else { self.alertMessage(message: noPermissionMessage)}
+                        } else { self.alertMessage(message: Constants.String.NoPermissionMessage.camera)}
                     }
                 })
             case .authorized:
                 self.presentImagePicker(sourceType: sourceType)
             case .restricted, .denied:
-                self.alertMessage(message: noPermissionMessage)
+                self.alertMessage(message: Constants.String.NoPermissionMessage.camera)
             @unknown default:
                 fatalError()
             }
         } else {
-            self.alertMessage(message: "Sincere apologies, it looks like we can't access your camera at this time")
+            self.alertMessage(message: Constants.String.CantAccess.camera)
         }
     }
     
@@ -117,8 +119,8 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func alertMessage(message: String?){
         
-        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
-        let OKaction = UIAlertAction(title: "Got it", style: .cancel)
+        let alertController = UIAlertController(title: Constants.String.Title.alertController, message: message, preferredStyle: .alert)
+        let OKaction = UIAlertAction(title: Constants.String.Title.alertAction , style: .cancel)
         alertController.addAction(OKaction)
         present(alertController, animated: true)
     }

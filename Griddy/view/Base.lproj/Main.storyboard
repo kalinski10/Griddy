@@ -59,6 +59,21 @@
                                     <constraint firstAttribute="width" constant="296" id="WnI-nP-66O"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAJ-cG-QT4">
+                                <rect key="frame" x="354" y="65" width="40" height="38.666666666666671"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="EqZ-NG-sqN"/>
+                                    <constraint firstAttribute="width" constant="40" id="odh-JG-elO"/>
+                                </constraints>
+                                <color key="tintColor" red="0.95252770190000002" green="0.91390573980000001" blue="0.82353395220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" backgroundImage="questionmark.circle.fill" catalog="system">
+                                    <color key="titleColor" red="0.95252770190000002" green="0.91390573980000001" blue="0.82353395220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="helpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fLY-5V-rVw"/>
+                                    <segue destination="hpg-HI-u5w" kind="show" identifier="segueToHelp" id="4Y1-x3-TYw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -67,6 +82,7 @@
                             </constraint>
                             <constraint firstItem="snb-tp-bq2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1ab-BC-Z0B"/>
                             <constraint firstItem="YDP-zn-bw0" firstAttribute="leading" secondItem="ScQ-ci-onb" secondAttribute="trailing" id="3ZN-fz-Rq7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nAJ-cG-QT4" secondAttribute="trailing" constant="20" id="5GX-oN-8sU"/>
                             <constraint firstItem="ScQ-ci-onb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="8ec-zK-vd0"/>
                             <constraint firstItem="ScQ-ci-onb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="8yg-3f-hnv">
                                 <variation key="heightClass=compact" constant="20"/>
@@ -81,6 +97,7 @@
                             <constraint firstItem="zF7-LF-xWo" firstAttribute="top" secondItem="YDP-zn-bw0" secondAttribute="bottom" id="TiG-ba-OxG"/>
                             <constraint firstItem="YDP-zn-bw0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Vua-7o-Pbn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ScQ-ci-onb" secondAttribute="trailing" constant="50" id="aRu-rc-XH0"/>
+                            <constraint firstItem="nAJ-cG-QT4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="bMT-9H-Ukj"/>
                             <constraint firstItem="zF7-LF-xWo" firstAttribute="centerX" secondItem="snb-tp-bq2" secondAttribute="centerX" id="hMM-EJ-Cq2"/>
                             <constraint firstItem="YDP-zn-bw0" firstAttribute="top" secondItem="snb-tp-bq2" secondAttribute="bottom" constant="8" id="jx8-PY-My8"/>
                             <constraint firstItem="YDP-zn-bw0" firstAttribute="top" secondItem="snb-tp-bq2" secondAttribute="bottom" constant="20" id="unq-Ad-sBn">
@@ -121,7 +138,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.25" y="137.68115942028987"/>
+            <point key="canvasLocation" x="130.43478260869566" y="137.27678571428569"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Jzy-yD-985">
+            <objects>
+                <viewController id="hpg-HI-u5w" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fyp-er-rh9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gridy-name-small-green" translatesAutoresizingMaskIntoConstraints="NO" id="cOB-PP-Ykw">
+                                <rect key="frame" x="127.66666666666669" y="20" width="159" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="2EN-eu-c9q"/>
+                                    <constraint firstAttribute="height" constant="63" id="PAd-th-SgV"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game rules" translatesAutoresizingMaskIntoConstraints="NO" id="kum-mI-G0M">
+                                <rect key="frame" x="20" y="103" width="374" height="685"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLJ-wa-1Ee">
+                                <rect key="frame" x="344" y="20" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="38X-rm-hbz"/>
+                                    <constraint firstAttribute="width" constant="50" id="Bar-aO-pXh"/>
+                                </constraints>
+                                <state key="normal" image="cancel button"/>
+                                <connections>
+                                    <segue destination="RsR-ZZ-8b2" kind="unwind" unwindAction="mainUnwindWithUnwindSegue:" id="EoW-cJ-vXo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95252770190000002" green="0.91390573980000001" blue="0.82353395220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="kum-mI-G0M" firstAttribute="leading" secondItem="Jff-Jh-yiW" secondAttribute="leading" constant="20" id="8Rf-jr-jUE"/>
+                            <constraint firstItem="kum-mI-G0M" firstAttribute="bottom" secondItem="Jff-Jh-yiW" secondAttribute="bottom" constant="-20" id="9az-nQ-dHK"/>
+                            <constraint firstItem="cOB-PP-Ykw" firstAttribute="centerX" secondItem="fyp-er-rh9" secondAttribute="centerX" id="G52-Lk-LGZ"/>
+                            <constraint firstItem="kum-mI-G0M" firstAttribute="top" secondItem="cOB-PP-Ykw" secondAttribute="bottom" constant="20" id="aJU-T9-max"/>
+                            <constraint firstItem="Jff-Jh-yiW" firstAttribute="trailing" secondItem="CLJ-wa-1Ee" secondAttribute="trailing" constant="20" id="aWX-Wb-yS7"/>
+                            <constraint firstItem="cOB-PP-Ykw" firstAttribute="top" secondItem="Jff-Jh-yiW" secondAttribute="top" constant="20" id="dx4-4e-nGZ"/>
+                            <constraint firstItem="Jff-Jh-yiW" firstAttribute="trailing" secondItem="kum-mI-G0M" secondAttribute="trailing" constant="20" id="t8J-Q7-Cq4"/>
+                            <constraint firstItem="CLJ-wa-1Ee" firstAttribute="top" secondItem="Jff-Jh-yiW" secondAttribute="top" constant="20" id="wvk-pk-om7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jff-Jh-yiW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wRX-Nr-YYv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PZz-cN-JD0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="RsR-ZZ-8b2" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="128.98550724637681" y="903.34821428571422"/>
         </scene>
         <!--Slice View Controller-->
         <scene sceneID="SbE-eT-rwB">
@@ -603,10 +670,12 @@ Share this with you friends!</string>
         <image name="camera Button" width="74" height="64"/>
         <image name="cancel button" width="50" height="50"/>
         <image name="dragText" width="237.66667175292969" height="41.666667938232422"/>
+        <image name="game rules" width="297" height="475"/>
         <image name="griddy Button" width="74" height="64"/>
         <image name="griddy Logo" width="165" height="83.5"/>
         <image name="motorBike" width="2339" height="1559.5"/>
         <image name="newGameButton" width="126" height="58"/>
+        <image name="questionmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="share button" width="318" height="86"/>
         <image name="sliceTemp" width="323" height="322"/>
         <image name="start Button" width="75" height="50"/>
