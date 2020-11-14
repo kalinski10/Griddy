@@ -26,9 +26,11 @@ class ShareViewController: UIViewController {
         self.view.backgroundColor = .white
         scoreText.backgroundColor = .white
         puzzleImage.image = completedImageRecieved
+        puzzleImage.backgroundColor = .white
         scoreText.text = textRecieved
         puzzleImage.layer.cornerRadius = puzzleImage.bounds.height / 8
         puzzleImage.contentMode = .scaleAspectFill
+        scoreText.isEditable = false
     }
     
     func displaySharingOptions() {

@@ -17,6 +17,8 @@ enum Constants {
             static  let photoLibrary = "Looks like Gridy doesn't have access to your photos :( please use settings app on your device to permit Gridy accessing your library"
             
             static let camera = "Looks like Gridy doesn't have access to your camera :( please use settings app on your device to permit Gridy accessing your camera"
+            
+            static let limited = "Gridy doesn't have acces to this photo"
         }
         
         enum CantAccess {

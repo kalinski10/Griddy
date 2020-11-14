@@ -63,6 +63,8 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.presentImagePicker(sourceType: sourceType)
             case .denied, .restricted:
                 alertMessage(message: Constants.String.NoPermissionMessage.photoLibrary)
+            case .limited:
+                alertMessage(message: Constants.String.NoPermissionMessage.limited)
             @unknown default:
                 fatalError()
             }
@@ -135,7 +137,7 @@ class BaseViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
     }
-    
+     
     private func randomImage() {
         
         var randIndex: Int
