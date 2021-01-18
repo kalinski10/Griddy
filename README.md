@@ -7,15 +7,15 @@ this is a photo puzzle game app allowing you to chose any picture to put togethe
 
 The achieved goals and functionalities are:
 
-Add gestures
-Transform views
-Ask for permission to access camera and photo library
-Utilise the MVC model
-Auto layout parameters
-utilise Collection view
-Drag and drop between collection views
-Contents sharing
-Scoring algorithm
+1. Add gestures
+2. Transform views
+3. Ask for permission to access camera and photo library
+4. Utilise the MVC model
+5. Auto layout parameters
+6. utilise Collection view
+7. Drag and drop between collection views
+8. Contents sharing
+9. Scoring algorithm
 
 The remaining goals are:
 Bug fixes
